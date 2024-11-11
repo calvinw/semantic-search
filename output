@@ -1,0 +1,148 @@
+   article_id  ...                                combined_embeddings
+0   192460006  ...  [-0.031699803, 0.042784415, 0.045282006, 0.045...
+1   202017055  ...  [0.03767351, 0.00836725, -0.05172235, -0.02149...
+2   212629004  ...  [-0.004119796, 0.088443846, -0.015400278, 0.08...
+3   212629031  ...  [0.002330641, 0.09168427, 0.0060349987, 0.0558...
+4   212629032  ...  [0.009148979, 0.08095534, 0.00083553675, 0.068...
+
+[5 rows x 3 columns]
+
+Top matches for query 1: 'A comfortable dress for casual wear with pockets.'
+
+Rank 1:
+Article ID: 613643003
+Combined Text: Carry Dress Dress Garment Full body Solid Black Calf-length dress in a sturdy weave with a collar, button placket and flap chest pockets. Low dropped shoulders, wide, tapered sleeves with buttoned cuffs, a detachable tie belt, and slits in the sides.
+Similarity: 0.6530
+
+Rank 2:
+Article ID: 882485003
+Combined Text: Stockholm linen tunic Dress Garment Full body Solid Black Short, V-neck dress in an airy weave with flutter sleeves and gathered tiers to the hem for added volume. Unlined.
+Similarity: 0.6473
+
+Rank 3:
+Article ID: 878509001
+Combined Text: Clingy dress Dress Garment Full body Dot Black Short, straight-cut dress in an airy plumeti weave with crinkled sections. Opening with ties at the top and short sleeves with gathered hems. Seam at the waist with a small frill and a flared skirt with a tier at the hem for added volume. Jersey underdress with adjustable shoulder straps.
+Similarity: 0.6454
+
+Rank 4:
+Article ID: 878509002
+Combined Text: Clingy dress Dress Garment Full body Dot Off White Short, straight-cut dress in an airy plumeti weave with crinkled sections. Opening with ties at the top and short sleeves with gathered hems. Seam at the waist with a small frill and a flared skirt with a tier at the hem for added volume. Jersey underdress with adjustable shoulder straps.
+Similarity: 0.6430
+
+Rank 5:
+Article ID: 882485001
+Combined Text: Stockholm linen tunic Dress Garment Full body Solid White Short, V-neck dress in an airy weave with flutter sleeves and gathered tiers to the hem for added volume. Unlined.
+Similarity: 0.6426
+
+
+Top matches for query 2: 'Elegant long black dress for an evening event.'
+
+Rank 1:
+Article ID: 570806001
+Combined Text: Celebration dress Dress Garment Full body Sequin Black Short-sleeved, calf-length dress in mesh with sequins and embroidered text. Opening and button at the back of the neck, seam at the waist and flared skirt. Short jersey underdress with narrow shoulder straps.
+Similarity: 0.6844
+
+Rank 2:
+Article ID: 921697002
+Combined Text: Dark romance dress Dress Garment Full body Solid Black Dress in a softly draping viscose weave with decorative frills. Stand-up collar, concealed buttons at the top and long balloon sleeves with a puff at the shoulders and wide, close-fitting cuffs with covered buttons. Seam at the waist and a gentle flare to the hem. Unlined.
+Similarity: 0.6811
+
+Rank 3:
+Article ID: 921697005
+Combined Text: Dark romance dress Dress Garment Full body All over pattern Black Dress in a softly draping viscose weave with decorative frills. Stand-up collar, concealed buttons at the top and long balloon sleeves with a puff at the shoulders and wide, close-fitting cuffs with covered buttons. Seam at the waist and a gentle flare to the hem. Unlined.
+Similarity: 0.6748
+
+Rank 4:
+Article ID: 796609001
+Combined Text: PARTY Gloria dress Dress Garment Full body Sequin Black Long dress in glittery patterned mesh with a V-neck at the front, deep V-neck at the back and concealed zip in one side. Adjustable spaghetti shoulder straps that cross, lace and fasten at the back, seam at the waist and a flare to the hem. Satin lining.
+Similarity: 0.6684
+
+Rank 5:
+Article ID: 608022003
+Combined Text: Bridesmaid Dress Garment Full body Solid Black Long dress in an airy crêpe weave in a narrow cut at the top with thin shoulder straps. Opening with inset lace at the front, an open back with lace sections and an adjustable hook-and-eye fastening at the back of the neck. Seam at the waist and a flared skirt with a concealed zip at the back. Lined.
+Similarity: 0.6619
+
+
+Top matches for query 3: 'A cozy winter dress with long sleeves and a hood.'
+
+Rank 1:
+Article ID: 536475002
+Combined Text: Snow dress Dress Garment Full body All over pattern Black Dress in a floral-print crêpe weave with inset lace sections and an opening with a button at the back of the neck. Short sleeves with a flounce, a seam at the waist and a concealed zip in the side. Lined skirt.
+Similarity: 0.6742
+
+Rank 2:
+Article ID: 644762003
+Combined Text: Fancy Dress Dress Garment Full body Colour blocking Black Short, fitted dress in sturdy jersey with a V-neck and long sleeves.
+Similarity: 0.6659
+
+Rank 3:
+Article ID: 644762002
+Combined Text: Fancy Dress Dress Garment Full body Colour blocking Black Short, fitted dress in sturdy jersey with a V-neck and long sleeves.
+Similarity: 0.6659
+
+Rank 4:
+Article ID: 604046002
+Combined Text: J Snow Dress Garment Full body Glittering/Metallic Dark Blue Knee-length, straight-cut dress in glittery velour with a V-neck and long sleeves. Unlined.
+Similarity: 0.6646
+
+Rank 5:
+Article ID: 922028003
+Combined Text: Autumn Dress Garment Full body Solid Black Short, A-line dress in woven fabric with a slight sheen. Round neckline and an opening with narrow ties at the back of the neck. Long, voluminous puff sleeves with narrow elastication at the cuffs. Unlined.
+Similarity: 0.6635
+
+
+Top matches for query 4: 'A sleeveless summer dress in green color.'
+
+Rank 1:
+Article ID: 766461002
+Combined Text: Summer dress Dress Garment Full body Solid Light Green Short, sleeveless dress in soft viscose jersey with a sheen. Opening with ties at the front, gathers at the shoulders, an elasticated seam at the waist and a straight skirt with a rounded hem.
+Similarity: 0.7691
+
+Rank 2:
+Article ID: 611606001
+Combined Text: Summer dress Dress Garment Full body Solid Dark Turquoise Short, sleeveless dress in soft viscose jersey with a sheen. Opening with ties at the front, gathers at the shoulders and a seam at the waist with decorative lacing at the sides. Straight skirt with a rounded hem.
+Similarity: 0.7140
+
+Rank 3:
+Article ID: 611606005
+Combined Text: Summer dress Dress Garment Full body Solid Pink Short, sleeveless dress in soft viscose jersey with a sheen. Opening with ties at the front, gathers at the shoulders and a seam at the waist with decorative lacing at the sides. Straight skirt with a rounded hem.
+Similarity: 0.7007
+
+Rank 4:
+Article ID: 766461003
+Combined Text: Summer dress Dress Garment Full body Solid Light Pink Short, sleeveless dress in soft viscose jersey with a sheen. Opening with ties at the front, gathers at the shoulders, an elasticated seam at the waist and a straight skirt with a rounded hem.
+Similarity: 0.6989
+
+Rank 5:
+Article ID: 766461001
+Combined Text: Summer dress Dress Garment Full body All over pattern Black Short, sleeveless dress in soft viscose jersey with a sheen. Opening with ties at the front, gathers at the shoulders, an elasticated seam at the waist and a straight skirt with a rounded hem.
+Similarity: 0.6872
+
+
+Top matches for query 5: 'A sporty striped dress that is light and easy to move in.'
+
+Rank 1:
+Article ID: 633469001
+Combined Text: Easy Way dress Dress Garment Full body Solid Black Short, straight-cut dress in woven fabric with a V-neck, narrow shoulder straps and decorative crossover straps at the back. Lined.
+Similarity: 0.6385
+
+Rank 2:
+Article ID: 744792002
+Combined Text: Easy Way Dress Dress Garment Full body Solid Light Orange Short, straight-cut dress in a crêpe weave with a V-neck, narrow shoulder straps and decorative crossover straps at the back. Lined.
+Similarity: 0.6376
+
+Rank 3:
+Article ID: 574684001
+Combined Text: Dolled up dress Dress Garment Full body Solid Black Short V-neck dress in sturdy satin with narrow, adjustable shoulder straps, a seam under the bust, concealed zip at the back and flared skirt. Lined.
+Similarity: 0.6373
+
+Rank 4:
+Article ID: 821845002
+Combined Text: Selma dress Dress Garment Full body Application/3D Other Yellow Short, fitted dress in sturdy jersey with a small stand-up collar and a zip at the top. Unlined.
+Similarity: 0.6367
+
+Rank 5:
+Article ID: 895376004
+Combined Text: Tiny dress Dress Garment Full body Solid Light Yellow Long dress in airy chiffon. Deep V-neck with concealed hook-and-eye fasteners at the front and a yoke with elastication and gathers at the top and at the back. Long dolman sleeves and an asymmetric seam with a drawstring at the waist. Flared skirt with a high slit at the front. Slightly longer at the back. Lined.
+Similarity: 0.6358
+

@@ -1,0 +1,61 @@
+---
+title: "Simple LLM Chain"
+---
+
+{{< include _llm_openrouter.qmd >}}
+
+### Description of Simple LLM Chain
+
+Here we build a simple LLM Chain that makes two calls to the LLM. The second step depends on the answer from the first step. This shows the idea of a chain.
+
+### Step 1: What is the city {person} is from?
+
+```{python}
+city_template="""
+Where is {person} from? Give just the city name
+"""
+
+city_prompt = city_template.format(person="Sean Connery")
+city_response = get_completion(city_prompt)
+print(city_response)
+```
+
+### Step 2: What country is {city} in?
+
+```{python}
+country_template="""
+What country is the city {city} in? Respond with just the name of the country 
+"""
+
+country_prompt = country_template.format(city=city_response)
+country_response = get_completion(country_prompt)
+print(country_response)
+```
+
+### Step 3: Final Report
+
+Sometimes we will want to print out a summary of the responses we get in a
+chain. This may or may not include the prompts we give as well. We can just use
+a template for this as well, even though this is not a prompt, it is a
+convenient way to set up a printed version of the information.
+
+```{python}
+report_template="""
+## Final Report
+
+### Person
+{person}
+
+### City
+{city}
+
+### Country
+{country}
+"""
+
+# We pass the format function the values we used or got from the LLM
+report = report_template.format(person = "Sean Connery",
+                                city = city_response,
+                                country= country_response)
+print(report)
+```
