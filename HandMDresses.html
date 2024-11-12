@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>H&amp;M Dresses</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="HandMDresses_files/libs/clipboard/clipboard.min.js"></script>
+<script src="HandMDresses_files/libs/quarto-html/quarto.js"></script>
+<script src="HandMDresses_files/libs/quarto-html/popper.min.js"></script>
+<script src="HandMDresses_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="HandMDresses_files/libs/quarto-html/anchor.min.js"></script>
+<link href="HandMDresses_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="HandMDresses_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="HandMDresses_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="HandMDresses_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="HandMDresses_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">H&amp;M Dresses</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="hm-dresses-dataframe" class="level1">
+<h1>H&amp;M Dresses Dataframe</h1>
+<p>First we take a look at a Dataframe that involves H &amp; M Dresses. We use just 100 in this little sample Dataframe.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> StringIO</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the CSV</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://calvinw.github.io/semantic-search/hm-dresses-100.csv"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Read into pandas DataFrame</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(StringIO(response.text))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> analyze_csv(df):</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># URL of the CSV file</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="st">"https://calvinw.github.io/semantic-search/hm-dresses-100.csv"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Basic dataset information</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Basic Information:"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Number of rows: </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Number of columns: </span><span class="sc">{</span><span class="bu">len</span>(df.columns)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Column information</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Column Details:"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> column <span class="kw">in</span> df.columns:</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        non_null <span class="op">=</span> df[column].count()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        dtype <span class="op">=</span> df[column].dtype</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        unique <span class="op">=</span> df[column].nunique()</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span>column<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"- Data type: </span><span class="sc">{</span>dtype<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"- Non-null count: </span><span class="sc">{</span>non_null<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"- Unique values: </span><span class="sc">{</span>unique<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"- Sample value: </span><span class="sc">{</span>df[column]<span class="sc">.</span>iloc[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dataset-information" class="level1">
+<h1>DataSet Information</h1>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.info()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 100 entries, 0 to 99
+Data columns (total 25 columns):
+ #   Column                        Non-Null Count  Dtype 
+---  ------                        --------------  ----- 
+ 0   article_id                    100 non-null    int64 
+ 1   product_code                  100 non-null    int64 
+ 2   prod_name                     100 non-null    object
+ 3   product_type_no               100 non-null    int64 
+ 4   product_type_name             100 non-null    object
+ 5   product_group_name            100 non-null    object
+ 6   graphical_appearance_no       100 non-null    int64 
+ 7   graphical_appearance_name     100 non-null    object
+ 8   colour_group_code             100 non-null    int64 
+ 9   colour_group_name             100 non-null    object
+ 10  perceived_colour_value_id     100 non-null    int64 
+ 11  perceived_colour_value_name   100 non-null    object
+ 12  perceived_colour_master_id    100 non-null    int64 
+ 13  perceived_colour_master_name  100 non-null    object
+ 14  department_no                 100 non-null    int64 
+ 15  department_name               100 non-null    object
+ 16  index_code                    100 non-null    object
+ 17  index_name                    100 non-null    object
+ 18  index_group_no                100 non-null    int64 
+ 19  index_group_name              100 non-null    object
+ 20  section_no                    100 non-null    int64 
+ 21  section_name                  100 non-null    object
+ 22  garment_group_no              100 non-null    int64 
+ 23  garment_group_name            100 non-null    object
+ 24  detail_desc                   100 non-null    object
+dtypes: int64(11), object(14)
+memory usage: 19.7+ KB</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">article_id</th>
+<th data-quarto-table-cell-role="th">product_code</th>
+<th data-quarto-table-cell-role="th">prod_name</th>
+<th data-quarto-table-cell-role="th">product_type_no</th>
+<th data-quarto-table-cell-role="th">product_type_name</th>
+<th data-quarto-table-cell-role="th">product_group_name</th>
+<th data-quarto-table-cell-role="th">graphical_appearance_no</th>
+<th data-quarto-table-cell-role="th">graphical_appearance_name</th>
+<th data-quarto-table-cell-role="th">colour_group_code</th>
+<th data-quarto-table-cell-role="th">colour_group_name</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">department_name</th>
+<th data-quarto-table-cell-role="th">index_code</th>
+<th data-quarto-table-cell-role="th">index_name</th>
+<th data-quarto-table-cell-role="th">index_group_no</th>
+<th data-quarto-table-cell-role="th">index_group_name</th>
+<th data-quarto-table-cell-role="th">section_no</th>
+<th data-quarto-table-cell-role="th">section_name</th>
+<th data-quarto-table-cell-role="th">garment_group_no</th>
+<th data-quarto-table-cell-role="th">garment_group_name</th>
+<th data-quarto-table-cell-role="th">detail_desc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>192460006</td>
+<td>192460</td>
+<td>Knit dress</td>
+<td>265</td>
+<td>Dress</td>
+<td>Garment Full body</td>
+<td>1010016</td>
+<td>Solid</td>
+<td>8</td>
+<td>Dark Grey</td>
+<td>...</td>
+<td>Tops Knitwear DS</td>
+<td>D</td>
+<td>Divided</td>
+<td>2</td>
+<td>Divided</td>
+<td>58</td>
+<td>Divided Selected</td>
+<td>1003</td>
+<td>Knitwear</td>
+<td>Short, fine-knit dress with a hood, waterfall ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>202017055</td>
+<td>202017</td>
+<td>Rihanna dress</td>
+<td>265</td>
+<td>Dress</td>
+<td>Garment Full body</td>
+<td>1010017</td>
+<td>Stripe</td>
+<td>10</td>
+<td>White</td>
+<td>...</td>
+<td>Jersey Basic</td>
+<td>A</td>
+<td>Ladieswear</td>
+<td>1</td>
+<td>Ladieswear</td>
+<td>16</td>
+<td>Womens Everyday Basics</td>
+<td>1002</td>
+<td>Jersey Basic</td>
+<td>Short-sleeved dress in slub jersey with an ela...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>212629004</td>
+<td>212629</td>
+<td>Alcazar strap dress</td>
+<td>265</td>
+<td>Dress</td>
+<td>Garment Full body</td>
+<td>1010016</td>
+<td>Solid</td>
+<td>9</td>
+<td>Black</td>
+<td>...</td>
+<td>Basic 1</td>
+<td>D</td>
+<td>Divided</td>
+<td>2</td>
+<td>Divided</td>
+<td>51</td>
+<td>Divided Basics</td>
+<td>1002</td>
+<td>Jersey Basic</td>
+<td>Long, sleeveless dress in jersey with narrow s...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>212629031</td>
+<td>212629</td>
+<td>Alcazar strap dress</td>
+<td>265</td>
+<td>Dress</td>
+<td>Garment Full body</td>
+<td>1010016</td>
+<td>Solid</td>
+<td>93</td>
+<td>Dark Green</td>
+<td>...</td>
+<td>Basic 1</td>
+<td>D</td>
+<td>Divided</td>
+<td>2</td>
+<td>Divided</td>
+<td>51</td>
+<td>Divided Basics</td>
+<td>1002</td>
+<td>Jersey Basic</td>
+<td>Long, sleeveless dress in jersey with narrow s...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>212629032</td>
+<td>212629</td>
+<td>Alcazar strap dress</td>
+<td>265</td>
+<td>Dress</td>
+<td>Garment Full body</td>
+<td>1010016</td>
+<td>Solid</td>
+<td>53</td>
+<td>Dark Pink</td>
+<td>...</td>
+<td>Basic 1</td>
+<td>D</td>
+<td>Divided</td>
+<td>2</td>
+<td>Divided</td>
+<td>51</td>
+<td>Divided Basics</td>
+<td>1002</td>
+<td>Jersey Basic</td>
+<td>Long, sleeveless dress in jersey with narrow s...</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 25 columns</p>
+</div>
+</div>
+</div>
+<p>What we will do is use the following fields and create a combined field.</p>
+<ul>
+<li>prod_name: The product name.</li>
+<li>product_type_name: The type of the product (e.g., dress, top).</li>
+<li>product_group_name: The broader category that the product belongs to (e.g., Garment Full body).</li>
+<li>graphical_appearance_name: The graphical appearance (e.g., Solid, Stripe).</li>
+<li>colour_group_name: The color group (e.g., Dark Grey, Black).</li>
+<li>detail_desc: The detailed description of the product.</li>
+</ul>
+<p>Lets take a look at just these fields for some of the data:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Select and rename columns</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>columns_mapping <span class="op">=</span> {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'prod_name'</span>: <span class="st">'Product Name'</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'product_type_name'</span>: <span class="st">'Product Type'</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'product_group_name'</span>: <span class="st">'Product Group'</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'graphical_appearance_name'</span>: <span class="st">'Appearance'</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'colour_group_name'</span>: <span class="st">'Color Group'</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'detail_desc'</span>: <span class="st">'Description'</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only the columns we want and rename them</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>selected_df <span class="op">=</span> df[<span class="bu">list</span>(columns_mapping.keys())].rename(columns<span class="op">=</span>columns_mapping)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Style the DataFrame for display</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>styled_df <span class="op">=</span> selected_df.style.set_properties(<span class="op">**</span>{</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'white-space'</span>: <span class="st">'pre-wrap'</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'text-align'</span>: <span class="st">'left'</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>}).set_table_styles([</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'selector'</span>: <span class="st">'th'</span>, <span class="st">'props'</span>: [</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'background-color'</span>, <span class="st">'#f4f4f4'</span>),</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'color'</span>, <span class="st">'#333'</span>),</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'font-weight'</span>, <span class="st">'bold'</span>),</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'text-align'</span>, <span class="st">'left'</span>),</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'padding'</span>, <span class="st">'8px'</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    ]},</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'selector'</span>: <span class="st">'td'</span>, <span class="st">'props'</span>: [</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'padding'</span>, <span class="st">'8px'</span>),</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'border-bottom'</span>, <span class="st">'1px solid #ddd'</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    ]}</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the styled DataFrame</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>display(HTML(<span class="st">"&lt;h3&gt;H&amp;M Products Catalog&lt;/h3&gt;"</span>))</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>display(styled_df)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Print some summary statistics</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Total number of products: </span><span class="sc">{</span><span class="bu">len</span>(selected_df)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Product Types Distribution:"</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(selected_df[<span class="st">'Product Type'</span>].value_counts())</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Color Groups Distribution:"</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(selected_df[<span class="st">'Color Group'</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<h3 class="anchored" data-anchor-id="dataset-information">H&amp;M Products Catalog</h3>
+</div>
+<div class="cell-output cell-output-display">
+<style type="text/css">
+#T_cefd9 th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+  text-align: left;
+  padding: 8px;
+}
+#T_cefd9 td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+#T_cefd9_row0_col0, #T_cefd9_row0_col1, #T_cefd9_row0_col2, #T_cefd9_row0_col3, #T_cefd9_row0_col4, #T_cefd9_row0_col5, #T_cefd9_row1_col0, #T_cefd9_row1_col1, #T_cefd9_row1_col2, #T_cefd9_row1_col3, #T_cefd9_row1_col4, #T_cefd9_row1_col5, #T_cefd9_row2_col0, #T_cefd9_row2_col1, #T_cefd9_row2_col2, #T_cefd9_row2_col3, #T_cefd9_row2_col4, #T_cefd9_row2_col5, #T_cefd9_row3_col0, #T_cefd9_row3_col1, #T_cefd9_row3_col2, #T_cefd9_row3_col3, #T_cefd9_row3_col4, #T_cefd9_row3_col5, #T_cefd9_row4_col0, #T_cefd9_row4_col1, #T_cefd9_row4_col2, #T_cefd9_row4_col3, #T_cefd9_row4_col4, #T_cefd9_row4_col5, #T_cefd9_row5_col0, #T_cefd9_row5_col1, #T_cefd9_row5_col2, #T_cefd9_row5_col3, #T_cefd9_row5_col4, #T_cefd9_row5_col5, #T_cefd9_row6_col0, #T_cefd9_row6_col1, #T_cefd9_row6_col2, #T_cefd9_row6_col3, #T_cefd9_row6_col4, #T_cefd9_row6_col5, #T_cefd9_row7_col0, #T_cefd9_row7_col1, #T_cefd9_row7_col2, #T_cefd9_row7_col3, #T_cefd9_row7_col4, #T_cefd9_row7_col5, #T_cefd9_row8_col0, #T_cefd9_row8_col1, #T_cefd9_row8_col2, #T_cefd9_row8_col3, #T_cefd9_row8_col4, #T_cefd9_row8_col5, #T_cefd9_row9_col0, #T_cefd9_row9_col1, #T_cefd9_row9_col2, #T_cefd9_row9_col3, #T_cefd9_row9_col4, #T_cefd9_row9_col5, #T_cefd9_row10_col0, #T_cefd9_row10_col1, #T_cefd9_row10_col2, #T_cefd9_row10_col3, #T_cefd9_row10_col4, #T_cefd9_row10_col5, #T_cefd9_row11_col0, #T_cefd9_row11_col1, #T_cefd9_row11_col2, #T_cefd9_row11_col3, #T_cefd9_row11_col4, #T_cefd9_row11_col5, #T_cefd9_row12_col0, #T_cefd9_row12_col1, #T_cefd9_row12_col2, #T_cefd9_row12_col3, #T_cefd9_row12_col4, #T_cefd9_row12_col5, #T_cefd9_row13_col0, #T_cefd9_row13_col1, #T_cefd9_row13_col2, #T_cefd9_row13_col3, #T_cefd9_row13_col4, #T_cefd9_row13_col5, #T_cefd9_row14_col0, #T_cefd9_row14_col1, #T_cefd9_row14_col2, #T_cefd9_row14_col3, #T_cefd9_row14_col4, #T_cefd9_row14_col5, #T_cefd9_row15_col0, #T_cefd9_row15_col1, #T_cefd9_row15_col2, #T_cefd9_row15_col3, #T_cefd9_row15_col4, #T_cefd9_row15_col5, #T_cefd9_row16_col0, #T_cefd9_row16_col1, #T_cefd9_row16_col2, #T_cefd9_row16_col3, #T_cefd9_row16_col4, #T_cefd9_row16_col5, #T_cefd9_row17_col0, #T_cefd9_row17_col1, #T_cefd9_row17_col2, #T_cefd9_row17_col3, #T_cefd9_row17_col4, #T_cefd9_row17_col5, #T_cefd9_row18_col0, #T_cefd9_row18_col1, #T_cefd9_row18_col2, #T_cefd9_row18_col3, #T_cefd9_row18_col4, #T_cefd9_row18_col5, #T_cefd9_row19_col0, #T_cefd9_row19_col1, #T_cefd9_row19_col2, #T_cefd9_row19_col3, #T_cefd9_row19_col4, #T_cefd9_row19_col5, #T_cefd9_row20_col0, #T_cefd9_row20_col1, #T_cefd9_row20_col2, #T_cefd9_row20_col3, #T_cefd9_row20_col4, #T_cefd9_row20_col5, #T_cefd9_row21_col0, #T_cefd9_row21_col1, #T_cefd9_row21_col2, #T_cefd9_row21_col3, #T_cefd9_row21_col4, #T_cefd9_row21_col5, #T_cefd9_row22_col0, #T_cefd9_row22_col1, #T_cefd9_row22_col2, #T_cefd9_row22_col3, #T_cefd9_row22_col4, #T_cefd9_row22_col5, #T_cefd9_row23_col0, #T_cefd9_row23_col1, #T_cefd9_row23_col2, #T_cefd9_row23_col3, #T_cefd9_row23_col4, #T_cefd9_row23_col5, #T_cefd9_row24_col0, #T_cefd9_row24_col1, #T_cefd9_row24_col2, #T_cefd9_row24_col3, #T_cefd9_row24_col4, #T_cefd9_row24_col5, #T_cefd9_row25_col0, #T_cefd9_row25_col1, #T_cefd9_row25_col2, #T_cefd9_row25_col3, #T_cefd9_row25_col4, #T_cefd9_row25_col5, #T_cefd9_row26_col0, #T_cefd9_row26_col1, #T_cefd9_row26_col2, #T_cefd9_row26_col3, #T_cefd9_row26_col4, #T_cefd9_row26_col5, #T_cefd9_row27_col0, #T_cefd9_row27_col1, #T_cefd9_row27_col2, #T_cefd9_row27_col3, #T_cefd9_row27_col4, #T_cefd9_row27_col5, #T_cefd9_row28_col0, #T_cefd9_row28_col1, #T_cefd9_row28_col2, #T_cefd9_row28_col3, #T_cefd9_row28_col4, #T_cefd9_row28_col5, #T_cefd9_row29_col0, #T_cefd9_row29_col1, #T_cefd9_row29_col2, #T_cefd9_row29_col3, #T_cefd9_row29_col4, #T_cefd9_row29_col5, #T_cefd9_row30_col0, #T_cefd9_row30_col1, #T_cefd9_row30_col2, #T_cefd9_row30_col3, #T_cefd9_row30_col4, #T_cefd9_row30_col5, #T_cefd9_row31_col0, #T_cefd9_row31_col1, #T_cefd9_row31_col2, #T_cefd9_row31_col3, #T_cefd9_row31_col4, #T_cefd9_row31_col5, #T_cefd9_row32_col0, #T_cefd9_row32_col1, #T_cefd9_row32_col2, #T_cefd9_row32_col3, #T_cefd9_row32_col4, #T_cefd9_row32_col5, #T_cefd9_row33_col0, #T_cefd9_row33_col1, #T_cefd9_row33_col2, #T_cefd9_row33_col3, #T_cefd9_row33_col4, #T_cefd9_row33_col5, #T_cefd9_row34_col0, #T_cefd9_row34_col1, #T_cefd9_row34_col2, #T_cefd9_row34_col3, #T_cefd9_row34_col4, #T_cefd9_row34_col5, #T_cefd9_row35_col0, #T_cefd9_row35_col1, #T_cefd9_row35_col2, #T_cefd9_row35_col3, #T_cefd9_row35_col4, #T_cefd9_row35_col5, #T_cefd9_row36_col0, #T_cefd9_row36_col1, #T_cefd9_row36_col2, #T_cefd9_row36_col3, #T_cefd9_row36_col4, #T_cefd9_row36_col5, #T_cefd9_row37_col0, #T_cefd9_row37_col1, #T_cefd9_row37_col2, #T_cefd9_row37_col3, #T_cefd9_row37_col4, #T_cefd9_row37_col5, #T_cefd9_row38_col0, #T_cefd9_row38_col1, #T_cefd9_row38_col2, #T_cefd9_row38_col3, #T_cefd9_row38_col4, #T_cefd9_row38_col5, #T_cefd9_row39_col0, #T_cefd9_row39_col1, #T_cefd9_row39_col2, #T_cefd9_row39_col3, #T_cefd9_row39_col4, #T_cefd9_row39_col5, #T_cefd9_row40_col0, #T_cefd9_row40_col1, #T_cefd9_row40_col2, #T_cefd9_row40_col3, #T_cefd9_row40_col4, #T_cefd9_row40_col5, #T_cefd9_row41_col0, #T_cefd9_row41_col1, #T_cefd9_row41_col2, #T_cefd9_row41_col3, #T_cefd9_row41_col4, #T_cefd9_row41_col5, #T_cefd9_row42_col0, #T_cefd9_row42_col1, #T_cefd9_row42_col2, #T_cefd9_row42_col3, #T_cefd9_row42_col4, #T_cefd9_row42_col5, #T_cefd9_row43_col0, #T_cefd9_row43_col1, #T_cefd9_row43_col2, #T_cefd9_row43_col3, #T_cefd9_row43_col4, #T_cefd9_row43_col5, #T_cefd9_row44_col0, #T_cefd9_row44_col1, #T_cefd9_row44_col2, #T_cefd9_row44_col3, #T_cefd9_row44_col4, #T_cefd9_row44_col5, #T_cefd9_row45_col0, #T_cefd9_row45_col1, #T_cefd9_row45_col2, #T_cefd9_row45_col3, #T_cefd9_row45_col4, #T_cefd9_row45_col5, #T_cefd9_row46_col0, #T_cefd9_row46_col1, #T_cefd9_row46_col2, #T_cefd9_row46_col3, #T_cefd9_row46_col4, #T_cefd9_row46_col5, #T_cefd9_row47_col0, #T_cefd9_row47_col1, #T_cefd9_row47_col2, #T_cefd9_row47_col3, #T_cefd9_row47_col4, #T_cefd9_row47_col5, #T_cefd9_row48_col0, #T_cefd9_row48_col1, #T_cefd9_row48_col2, #T_cefd9_row48_col3, #T_cefd9_row48_col4, #T_cefd9_row48_col5, #T_cefd9_row49_col0, #T_cefd9_row49_col1, #T_cefd9_row49_col2, #T_cefd9_row49_col3, #T_cefd9_row49_col4, #T_cefd9_row49_col5, #T_cefd9_row50_col0, #T_cefd9_row50_col1, #T_cefd9_row50_col2, #T_cefd9_row50_col3, #T_cefd9_row50_col4, #T_cefd9_row50_col5, #T_cefd9_row51_col0, #T_cefd9_row51_col1, #T_cefd9_row51_col2, #T_cefd9_row51_col3, #T_cefd9_row51_col4, #T_cefd9_row51_col5, #T_cefd9_row52_col0, #T_cefd9_row52_col1, #T_cefd9_row52_col2, #T_cefd9_row52_col3, #T_cefd9_row52_col4, #T_cefd9_row52_col5, #T_cefd9_row53_col0, #T_cefd9_row53_col1, #T_cefd9_row53_col2, #T_cefd9_row53_col3, #T_cefd9_row53_col4, #T_cefd9_row53_col5, #T_cefd9_row54_col0, #T_cefd9_row54_col1, #T_cefd9_row54_col2, #T_cefd9_row54_col3, #T_cefd9_row54_col4, #T_cefd9_row54_col5, #T_cefd9_row55_col0, #T_cefd9_row55_col1, #T_cefd9_row55_col2, #T_cefd9_row55_col3, #T_cefd9_row55_col4, #T_cefd9_row55_col5, #T_cefd9_row56_col0, #T_cefd9_row56_col1, #T_cefd9_row56_col2, #T_cefd9_row56_col3, #T_cefd9_row56_col4, #T_cefd9_row56_col5, #T_cefd9_row57_col0, #T_cefd9_row57_col1, #T_cefd9_row57_col2, #T_cefd9_row57_col3, #T_cefd9_row57_col4, #T_cefd9_row57_col5, #T_cefd9_row58_col0, #T_cefd9_row58_col1, #T_cefd9_row58_col2, #T_cefd9_row58_col3, #T_cefd9_row58_col4, #T_cefd9_row58_col5, #T_cefd9_row59_col0, #T_cefd9_row59_col1, #T_cefd9_row59_col2, #T_cefd9_row59_col3, #T_cefd9_row59_col4, #T_cefd9_row59_col5, #T_cefd9_row60_col0, #T_cefd9_row60_col1, #T_cefd9_row60_col2, #T_cefd9_row60_col3, #T_cefd9_row60_col4, #T_cefd9_row60_col5, #T_cefd9_row61_col0, #T_cefd9_row61_col1, #T_cefd9_row61_col2, #T_cefd9_row61_col3, #T_cefd9_row61_col4, #T_cefd9_row61_col5, #T_cefd9_row62_col0, #T_cefd9_row62_col1, #T_cefd9_row62_col2, #T_cefd9_row62_col3, #T_cefd9_row62_col4, #T_cefd9_row62_col5, #T_cefd9_row63_col0, #T_cefd9_row63_col1, #T_cefd9_row63_col2, #T_cefd9_row63_col3, #T_cefd9_row63_col4, #T_cefd9_row63_col5, #T_cefd9_row64_col0, #T_cefd9_row64_col1, #T_cefd9_row64_col2, #T_cefd9_row64_col3, #T_cefd9_row64_col4, #T_cefd9_row64_col5, #T_cefd9_row65_col0, #T_cefd9_row65_col1, #T_cefd9_row65_col2, #T_cefd9_row65_col3, #T_cefd9_row65_col4, #T_cefd9_row65_col5, #T_cefd9_row66_col0, #T_cefd9_row66_col1, #T_cefd9_row66_col2, #T_cefd9_row66_col3, #T_cefd9_row66_col4, #T_cefd9_row66_col5, #T_cefd9_row67_col0, #T_cefd9_row67_col1, #T_cefd9_row67_col2, #T_cefd9_row67_col3, #T_cefd9_row67_col4, #T_cefd9_row67_col5, #T_cefd9_row68_col0, #T_cefd9_row68_col1, #T_cefd9_row68_col2, #T_cefd9_row68_col3, #T_cefd9_row68_col4, #T_cefd9_row68_col5, #T_cefd9_row69_col0, #T_cefd9_row69_col1, #T_cefd9_row69_col2, #T_cefd9_row69_col3, #T_cefd9_row69_col4, #T_cefd9_row69_col5, #T_cefd9_row70_col0, #T_cefd9_row70_col1, #T_cefd9_row70_col2, #T_cefd9_row70_col3, #T_cefd9_row70_col4, #T_cefd9_row70_col5, #T_cefd9_row71_col0, #T_cefd9_row71_col1, #T_cefd9_row71_col2, #T_cefd9_row71_col3, #T_cefd9_row71_col4, #T_cefd9_row71_col5, #T_cefd9_row72_col0, #T_cefd9_row72_col1, #T_cefd9_row72_col2, #T_cefd9_row72_col3, #T_cefd9_row72_col4, #T_cefd9_row72_col5, #T_cefd9_row73_col0, #T_cefd9_row73_col1, #T_cefd9_row73_col2, #T_cefd9_row73_col3, #T_cefd9_row73_col4, #T_cefd9_row73_col5, #T_cefd9_row74_col0, #T_cefd9_row74_col1, #T_cefd9_row74_col2, #T_cefd9_row74_col3, #T_cefd9_row74_col4, #T_cefd9_row74_col5, #T_cefd9_row75_col0, #T_cefd9_row75_col1, #T_cefd9_row75_col2, #T_cefd9_row75_col3, #T_cefd9_row75_col4, #T_cefd9_row75_col5, #T_cefd9_row76_col0, #T_cefd9_row76_col1, #T_cefd9_row76_col2, #T_cefd9_row76_col3, #T_cefd9_row76_col4, #T_cefd9_row76_col5, #T_cefd9_row77_col0, #T_cefd9_row77_col1, #T_cefd9_row77_col2, #T_cefd9_row77_col3, #T_cefd9_row77_col4, #T_cefd9_row77_col5, #T_cefd9_row78_col0, #T_cefd9_row78_col1, #T_cefd9_row78_col2, #T_cefd9_row78_col3, #T_cefd9_row78_col4, #T_cefd9_row78_col5, #T_cefd9_row79_col0, #T_cefd9_row79_col1, #T_cefd9_row79_col2, #T_cefd9_row79_col3, #T_cefd9_row79_col4, #T_cefd9_row79_col5, #T_cefd9_row80_col0, #T_cefd9_row80_col1, #T_cefd9_row80_col2, #T_cefd9_row80_col3, #T_cefd9_row80_col4, #T_cefd9_row80_col5, #T_cefd9_row81_col0, #T_cefd9_row81_col1, #T_cefd9_row81_col2, #T_cefd9_row81_col3, #T_cefd9_row81_col4, #T_cefd9_row81_col5, #T_cefd9_row82_col0, #T_cefd9_row82_col1, #T_cefd9_row82_col2, #T_cefd9_row82_col3, #T_cefd9_row82_col4, #T_cefd9_row82_col5, #T_cefd9_row83_col0, #T_cefd9_row83_col1, #T_cefd9_row83_col2, #T_cefd9_row83_col3, #T_cefd9_row83_col4, #T_cefd9_row83_col5, #T_cefd9_row84_col0, #T_cefd9_row84_col1, #T_cefd9_row84_col2, #T_cefd9_row84_col3, #T_cefd9_row84_col4, #T_cefd9_row84_col5, #T_cefd9_row85_col0, #T_cefd9_row85_col1, #T_cefd9_row85_col2, #T_cefd9_row85_col3, #T_cefd9_row85_col4, #T_cefd9_row85_col5, #T_cefd9_row86_col0, #T_cefd9_row86_col1, #T_cefd9_row86_col2, #T_cefd9_row86_col3, #T_cefd9_row86_col4, #T_cefd9_row86_col5, #T_cefd9_row87_col0, #T_cefd9_row87_col1, #T_cefd9_row87_col2, #T_cefd9_row87_col3, #T_cefd9_row87_col4, #T_cefd9_row87_col5, #T_cefd9_row88_col0, #T_cefd9_row88_col1, #T_cefd9_row88_col2, #T_cefd9_row88_col3, #T_cefd9_row88_col4, #T_cefd9_row88_col5, #T_cefd9_row89_col0, #T_cefd9_row89_col1, #T_cefd9_row89_col2, #T_cefd9_row89_col3, #T_cefd9_row89_col4, #T_cefd9_row89_col5, #T_cefd9_row90_col0, #T_cefd9_row90_col1, #T_cefd9_row90_col2, #T_cefd9_row90_col3, #T_cefd9_row90_col4, #T_cefd9_row90_col5, #T_cefd9_row91_col0, #T_cefd9_row91_col1, #T_cefd9_row91_col2, #T_cefd9_row91_col3, #T_cefd9_row91_col4, #T_cefd9_row91_col5, #T_cefd9_row92_col0, #T_cefd9_row92_col1, #T_cefd9_row92_col2, #T_cefd9_row92_col3, #T_cefd9_row92_col4, #T_cefd9_row92_col5, #T_cefd9_row93_col0, #T_cefd9_row93_col1, #T_cefd9_row93_col2, #T_cefd9_row93_col3, #T_cefd9_row93_col4, #T_cefd9_row93_col5, #T_cefd9_row94_col0, #T_cefd9_row94_col1, #T_cefd9_row94_col2, #T_cefd9_row94_col3, #T_cefd9_row94_col4, #T_cefd9_row94_col5, #T_cefd9_row95_col0, #T_cefd9_row95_col1, #T_cefd9_row95_col2, #T_cefd9_row95_col3, #T_cefd9_row95_col4, #T_cefd9_row95_col5, #T_cefd9_row96_col0, #T_cefd9_row96_col1, #T_cefd9_row96_col2, #T_cefd9_row96_col3, #T_cefd9_row96_col4, #T_cefd9_row96_col5, #T_cefd9_row97_col0, #T_cefd9_row97_col1, #T_cefd9_row97_col2, #T_cefd9_row97_col3, #T_cefd9_row97_col4, #T_cefd9_row97_col5, #T_cefd9_row98_col0, #T_cefd9_row98_col1, #T_cefd9_row98_col2, #T_cefd9_row98_col3, #T_cefd9_row98_col4, #T_cefd9_row98_col5, #T_cefd9_row99_col0, #T_cefd9_row99_col1, #T_cefd9_row99_col2, #T_cefd9_row99_col3, #T_cefd9_row99_col4, #T_cefd9_row99_col5 {
+  white-space: pre-wrap;
+  text-align: left;
+}
+</style>
+
+<table id="T_cefd9" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_cefd9_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Product Name</th>
+<th id="T_cefd9_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Product Type</th>
+<th id="T_cefd9_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Product Group</th>
+<th id="T_cefd9_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Appearance</th>
+<th id="T_cefd9_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">Color Group</th>
+<th id="T_cefd9_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_cefd9_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_cefd9_row0_col0" class="data row0 col0">Knit dress</td>
+<td id="T_cefd9_row0_col1" class="data row0 col1">Dress</td>
+<td id="T_cefd9_row0_col2" class="data row0 col2">Garment Full body</td>
+<td id="T_cefd9_row0_col3" class="data row0 col3">Solid</td>
+<td id="T_cefd9_row0_col4" class="data row0 col4">Dark Grey</td>
+<td id="T_cefd9_row0_col5" class="data row0 col5">Short, fine-knit dress with a hood, waterfall neckline and long sleeves. Unlined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_cefd9_row1_col0" class="data row1 col0">Rihanna dress</td>
+<td id="T_cefd9_row1_col1" class="data row1 col1">Dress</td>
+<td id="T_cefd9_row1_col2" class="data row1 col2">Garment Full body</td>
+<td id="T_cefd9_row1_col3" class="data row1 col3">Stripe</td>
+<td id="T_cefd9_row1_col4" class="data row1 col4">White</td>
+<td id="T_cefd9_row1_col5" class="data row1 col5">Short-sleeved dress in slub jersey with an elasticated waist and side pockets.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_cefd9_row2_col0" class="data row2 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row2_col1" class="data row2 col1">Dress</td>
+<td id="T_cefd9_row2_col2" class="data row2 col2">Garment Full body</td>
+<td id="T_cefd9_row2_col3" class="data row2 col3">Solid</td>
+<td id="T_cefd9_row2_col4" class="data row2 col4">Black</td>
+<td id="T_cefd9_row2_col5" class="data row2 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_cefd9_row3_col0" class="data row3 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row3_col1" class="data row3 col1">Dress</td>
+<td id="T_cefd9_row3_col2" class="data row3 col2">Garment Full body</td>
+<td id="T_cefd9_row3_col3" class="data row3 col3">Solid</td>
+<td id="T_cefd9_row3_col4" class="data row3 col4">Dark Green</td>
+<td id="T_cefd9_row3_col5" class="data row3 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_cefd9_row4_col0" class="data row4 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row4_col1" class="data row4 col1">Dress</td>
+<td id="T_cefd9_row4_col2" class="data row4 col2">Garment Full body</td>
+<td id="T_cefd9_row4_col3" class="data row4 col3">Solid</td>
+<td id="T_cefd9_row4_col4" class="data row4 col4">Dark Pink</td>
+<td id="T_cefd9_row4_col5" class="data row4 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
+<td id="T_cefd9_row5_col0" class="data row5 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row5_col1" class="data row5 col1">Dress</td>
+<td id="T_cefd9_row5_col2" class="data row5 col2">Garment Full body</td>
+<td id="T_cefd9_row5_col3" class="data row5 col3">Stripe</td>
+<td id="T_cefd9_row5_col4" class="data row5 col4">White</td>
+<td id="T_cefd9_row5_col5" class="data row5 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
+<td id="T_cefd9_row6_col0" class="data row6 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row6_col1" class="data row6 col1">Dress</td>
+<td id="T_cefd9_row6_col2" class="data row6 col2">Garment Full body</td>
+<td id="T_cefd9_row6_col3" class="data row6 col3">Solid</td>
+<td id="T_cefd9_row6_col4" class="data row6 col4">Red</td>
+<td id="T_cefd9_row6_col5" class="data row6 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">7</td>
+<td id="T_cefd9_row7_col0" class="data row7 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row7_col1" class="data row7 col1">Dress</td>
+<td id="T_cefd9_row7_col2" class="data row7 col2">Garment Full body</td>
+<td id="T_cefd9_row7_col3" class="data row7 col3">Solid</td>
+<td id="T_cefd9_row7_col4" class="data row7 col4">Greenish Khaki</td>
+<td id="T_cefd9_row7_col5" class="data row7 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">8</td>
+<td id="T_cefd9_row8_col0" class="data row8 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row8_col1" class="data row8 col1">Dress</td>
+<td id="T_cefd9_row8_col2" class="data row8 col2">Garment Full body</td>
+<td id="T_cefd9_row8_col3" class="data row8 col3">Solid</td>
+<td id="T_cefd9_row8_col4" class="data row8 col4">Dark Red</td>
+<td id="T_cefd9_row8_col5" class="data row8 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">9</td>
+<td id="T_cefd9_row9_col0" class="data row9 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row9_col1" class="data row9 col1">Dress</td>
+<td id="T_cefd9_row9_col2" class="data row9 col2">Garment Full body</td>
+<td id="T_cefd9_row9_col3" class="data row9 col3">Solid</td>
+<td id="T_cefd9_row9_col4" class="data row9 col4">Red</td>
+<td id="T_cefd9_row9_col5" class="data row9 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row10" class="row_heading level0 row10" data-quarto-table-cell-role="th">10</td>
+<td id="T_cefd9_row10_col0" class="data row10 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row10_col1" class="data row10 col1">Dress</td>
+<td id="T_cefd9_row10_col2" class="data row10 col2">Garment Full body</td>
+<td id="T_cefd9_row10_col3" class="data row10 col3">Solid</td>
+<td id="T_cefd9_row10_col4" class="data row10 col4">Greenish Khaki</td>
+<td id="T_cefd9_row10_col5" class="data row10 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row11" class="row_heading level0 row11" data-quarto-table-cell-role="th">11</td>
+<td id="T_cefd9_row11_col0" class="data row11 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row11_col1" class="data row11 col1">Dress</td>
+<td id="T_cefd9_row11_col2" class="data row11 col2">Garment Full body</td>
+<td id="T_cefd9_row11_col3" class="data row11 col3">Solid</td>
+<td id="T_cefd9_row11_col4" class="data row11 col4">Dark Pink</td>
+<td id="T_cefd9_row11_col5" class="data row11 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row12" class="row_heading level0 row12" data-quarto-table-cell-role="th">12</td>
+<td id="T_cefd9_row12_col0" class="data row12 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row12_col1" class="data row12 col1">Dress</td>
+<td id="T_cefd9_row12_col2" class="data row12 col2">Garment Full body</td>
+<td id="T_cefd9_row12_col3" class="data row12 col3">Solid</td>
+<td id="T_cefd9_row12_col4" class="data row12 col4">Orange</td>
+<td id="T_cefd9_row12_col5" class="data row12 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row13" class="row_heading level0 row13" data-quarto-table-cell-role="th">13</td>
+<td id="T_cefd9_row13_col0" class="data row13 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row13_col1" class="data row13 col1">Dress</td>
+<td id="T_cefd9_row13_col2" class="data row13 col2">Garment Full body</td>
+<td id="T_cefd9_row13_col3" class="data row13 col3">Melange</td>
+<td id="T_cefd9_row13_col4" class="data row13 col4">Grey</td>
+<td id="T_cefd9_row13_col5" class="data row13 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row14" class="row_heading level0 row14" data-quarto-table-cell-role="th">14</td>
+<td id="T_cefd9_row14_col0" class="data row14 col0">Alcazar strap dress</td>
+<td id="T_cefd9_row14_col1" class="data row14 col1">Dress</td>
+<td id="T_cefd9_row14_col2" class="data row14 col2">Garment Full body</td>
+<td id="T_cefd9_row14_col3" class="data row14 col3">Stripe</td>
+<td id="T_cefd9_row14_col4" class="data row14 col4">White</td>
+<td id="T_cefd9_row14_col5" class="data row14 col5">Long, sleeveless dress in jersey with narrow shoulder straps and an elasticated seam at the waist. Unlined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row15" class="row_heading level0 row15" data-quarto-table-cell-role="th">15</td>
+<td id="T_cefd9_row15_col0" class="data row15 col0">Aguilera maxidress</td>
+<td id="T_cefd9_row15_col1" class="data row15 col1">Dress</td>
+<td id="T_cefd9_row15_col2" class="data row15 col2">Garment Full body</td>
+<td id="T_cefd9_row15_col3" class="data row15 col3">Solid</td>
+<td id="T_cefd9_row15_col4" class="data row15 col4">Black</td>
+<td id="T_cefd9_row15_col5" class="data row15 col5">Strapless maxi dress in jersey with an elasticated seam at the waist and slits in the sides. Integral top with elastication at the top.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row16" class="row_heading level0 row16" data-quarto-table-cell-role="th">16</td>
+<td id="T_cefd9_row16_col0" class="data row16 col0">Aguilera maxidress</td>
+<td id="T_cefd9_row16_col1" class="data row16 col1">Dress</td>
+<td id="T_cefd9_row16_col2" class="data row16 col2">Garment Full body</td>
+<td id="T_cefd9_row16_col3" class="data row16 col3">Solid</td>
+<td id="T_cefd9_row16_col4" class="data row16 col4">Greenish Khaki</td>
+<td id="T_cefd9_row16_col5" class="data row16 col5">Strapless maxi dress in jersey with an elasticated seam at the waist and slits in the sides. Integral top with elastication at the top.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row17" class="row_heading level0 row17" data-quarto-table-cell-role="th">17</td>
+<td id="T_cefd9_row17_col0" class="data row17 col0">Aguilera maxidress</td>
+<td id="T_cefd9_row17_col1" class="data row17 col1">Dress</td>
+<td id="T_cefd9_row17_col2" class="data row17 col2">Garment Full body</td>
+<td id="T_cefd9_row17_col3" class="data row17 col3">Stripe</td>
+<td id="T_cefd9_row17_col4" class="data row17 col4">Dark Blue</td>
+<td id="T_cefd9_row17_col5" class="data row17 col5">Strapless maxi dress in jersey with an elasticated seam at the waist and slits in the sides. Integral top with elastication at the top.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row18" class="row_heading level0 row18" data-quarto-table-cell-role="th">18</td>
+<td id="T_cefd9_row18_col0" class="data row18 col0">Aguilera maxidress</td>
+<td id="T_cefd9_row18_col1" class="data row18 col1">Dress</td>
+<td id="T_cefd9_row18_col2" class="data row18 col2">Garment Full body</td>
+<td id="T_cefd9_row18_col3" class="data row18 col3">All over pattern</td>
+<td id="T_cefd9_row18_col4" class="data row18 col4">Light Beige</td>
+<td id="T_cefd9_row18_col5" class="data row18 col5">Strapless maxi dress in jersey with an elasticated seam at the waist and slits in the sides. Integral top with elastication at the top.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row19" class="row_heading level0 row19" data-quarto-table-cell-role="th">19</td>
+<td id="T_cefd9_row19_col0" class="data row19 col0">Aguilera maxidress</td>
+<td id="T_cefd9_row19_col1" class="data row19 col1">Dress</td>
+<td id="T_cefd9_row19_col2" class="data row19 col2">Garment Full body</td>
+<td id="T_cefd9_row19_col3" class="data row19 col3">Stripe</td>
+<td id="T_cefd9_row19_col4" class="data row19 col4">Off White</td>
+<td id="T_cefd9_row19_col5" class="data row19 col5">Strapless maxi dress in jersey with an elasticated seam at the waist and slits in the sides. Integral top with elastication at the top.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row20" class="row_heading level0 row20" data-quarto-table-cell-role="th">20</td>
+<td id="T_cefd9_row20_col0" class="data row20 col0">Aguilera maxidress</td>
+<td id="T_cefd9_row20_col1" class="data row20 col1">Dress</td>
+<td id="T_cefd9_row20_col2" class="data row20 col2">Garment Full body</td>
+<td id="T_cefd9_row20_col3" class="data row20 col3">Solid</td>
+<td id="T_cefd9_row20_col4" class="data row20 col4">Grey</td>
+<td id="T_cefd9_row20_col5" class="data row20 col5">Strapless maxi dress in jersey with an elasticated seam at the waist and slits in the sides. Integral top with elastication at the top.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row21" class="row_heading level0 row21" data-quarto-table-cell-role="th">21</td>
+<td id="T_cefd9_row21_col0" class="data row21 col0">Aguilera maxidress</td>
+<td id="T_cefd9_row21_col1" class="data row21 col1">Dress</td>
+<td id="T_cefd9_row21_col2" class="data row21 col2">Garment Full body</td>
+<td id="T_cefd9_row21_col3" class="data row21 col3">Stripe</td>
+<td id="T_cefd9_row21_col4" class="data row21 col4">Blue</td>
+<td id="T_cefd9_row21_col5" class="data row21 col5">Strapless maxi dress in jersey with an elasticated seam at the waist and slits in the sides. Integral top with elastication at the top.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row22" class="row_heading level0 row22" data-quarto-table-cell-role="th">22</td>
+<td id="T_cefd9_row22_col0" class="data row22 col0">Aguilera maxidress</td>
+<td id="T_cefd9_row22_col1" class="data row22 col1">Dress</td>
+<td id="T_cefd9_row22_col2" class="data row22 col2">Garment Full body</td>
+<td id="T_cefd9_row22_col3" class="data row22 col3">Stripe</td>
+<td id="T_cefd9_row22_col4" class="data row22 col4">Dark Purple</td>
+<td id="T_cefd9_row22_col5" class="data row22 col5">Strapless maxi dress in jersey with an elasticated seam at the waist and slits in the sides. Integral top with elastication at the top.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row23" class="row_heading level0 row23" data-quarto-table-cell-role="th">23</td>
+<td id="T_cefd9_row23_col0" class="data row23 col0">Aguilera maxidress</td>
+<td id="T_cefd9_row23_col1" class="data row23 col1">Dress</td>
+<td id="T_cefd9_row23_col2" class="data row23 col2">Garment Full body</td>
+<td id="T_cefd9_row23_col3" class="data row23 col3">Solid</td>
+<td id="T_cefd9_row23_col4" class="data row23 col4">Dark Orange</td>
+<td id="T_cefd9_row23_col5" class="data row23 col5">Strapless maxi dress in jersey with an elasticated seam at the waist and slits in the sides. Integral top with elastication at the top.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row24" class="row_heading level0 row24" data-quarto-table-cell-role="th">24</td>
+<td id="T_cefd9_row24_col0" class="data row24 col0">Basic SS dress</td>
+<td id="T_cefd9_row24_col1" class="data row24 col1">Dress</td>
+<td id="T_cefd9_row24_col2" class="data row24 col2">Garment Full body</td>
+<td id="T_cefd9_row24_col3" class="data row24 col3">All over pattern</td>
+<td id="T_cefd9_row24_col4" class="data row24 col4">Light Pink</td>
+<td id="T_cefd9_row24_col5" class="data row24 col5">Short-sleeved dress in soft organic cotton jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row25" class="row_heading level0 row25" data-quarto-table-cell-role="th">25</td>
+<td id="T_cefd9_row25_col0" class="data row25 col0">Basic SS dress</td>
+<td id="T_cefd9_row25_col1" class="data row25 col1">Dress</td>
+<td id="T_cefd9_row25_col2" class="data row25 col2">Garment Full body</td>
+<td id="T_cefd9_row25_col3" class="data row25 col3">Stripe</td>
+<td id="T_cefd9_row25_col4" class="data row25 col4">Dark Blue</td>
+<td id="T_cefd9_row25_col5" class="data row25 col5">Short-sleeved dress in soft organic cotton jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row26" class="row_heading level0 row26" data-quarto-table-cell-role="th">26</td>
+<td id="T_cefd9_row26_col0" class="data row26 col0">Basic SS dress</td>
+<td id="T_cefd9_row26_col1" class="data row26 col1">Dress</td>
+<td id="T_cefd9_row26_col2" class="data row26 col2">Garment Full body</td>
+<td id="T_cefd9_row26_col3" class="data row26 col3">All over pattern</td>
+<td id="T_cefd9_row26_col4" class="data row26 col4">Dark Blue</td>
+<td id="T_cefd9_row26_col5" class="data row26 col5">Short-sleeved dress in soft organic cotton jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row27" class="row_heading level0 row27" data-quarto-table-cell-role="th">27</td>
+<td id="T_cefd9_row27_col0" class="data row27 col0">Basic SS dress</td>
+<td id="T_cefd9_row27_col1" class="data row27 col1">Dress</td>
+<td id="T_cefd9_row27_col2" class="data row27 col2">Garment Full body</td>
+<td id="T_cefd9_row27_col3" class="data row27 col3">All over pattern</td>
+<td id="T_cefd9_row27_col4" class="data row27 col4">Off White</td>
+<td id="T_cefd9_row27_col5" class="data row27 col5">Short-sleeved dress in soft organic cotton jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row28" class="row_heading level0 row28" data-quarto-table-cell-role="th">28</td>
+<td id="T_cefd9_row28_col0" class="data row28 col0">Basic SS dress</td>
+<td id="T_cefd9_row28_col1" class="data row28 col1">Dress</td>
+<td id="T_cefd9_row28_col2" class="data row28 col2">Garment Full body</td>
+<td id="T_cefd9_row28_col3" class="data row28 col3">All over pattern</td>
+<td id="T_cefd9_row28_col4" class="data row28 col4">Light Pink</td>
+<td id="T_cefd9_row28_col5" class="data row28 col5">Short-sleeved dress in soft organic cotton jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row29" class="row_heading level0 row29" data-quarto-table-cell-role="th">29</td>
+<td id="T_cefd9_row29_col0" class="data row29 col0">Basic SS dress</td>
+<td id="T_cefd9_row29_col1" class="data row29 col1">Dress</td>
+<td id="T_cefd9_row29_col2" class="data row29 col2">Garment Full body</td>
+<td id="T_cefd9_row29_col3" class="data row29 col3">All over pattern</td>
+<td id="T_cefd9_row29_col4" class="data row29 col4">Dark Blue</td>
+<td id="T_cefd9_row29_col5" class="data row29 col5">Short-sleeved dress in soft organic cotton jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row30" class="row_heading level0 row30" data-quarto-table-cell-role="th">30</td>
+<td id="T_cefd9_row30_col0" class="data row30 col0">Basic SS dress</td>
+<td id="T_cefd9_row30_col1" class="data row30 col1">Dress</td>
+<td id="T_cefd9_row30_col2" class="data row30 col2">Garment Full body</td>
+<td id="T_cefd9_row30_col3" class="data row30 col3">All over pattern</td>
+<td id="T_cefd9_row30_col4" class="data row30 col4">Light Pink</td>
+<td id="T_cefd9_row30_col5" class="data row30 col5">Short-sleeved dress in soft organic cotton jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row31" class="row_heading level0 row31" data-quarto-table-cell-role="th">31</td>
+<td id="T_cefd9_row31_col0" class="data row31 col0">Lena Rib Dress (1)</td>
+<td id="T_cefd9_row31_col1" class="data row31 col1">Dress</td>
+<td id="T_cefd9_row31_col2" class="data row31 col2">Garment Full body</td>
+<td id="T_cefd9_row31_col3" class="data row31 col3">Solid</td>
+<td id="T_cefd9_row31_col4" class="data row31 col4">Black</td>
+<td id="T_cefd9_row31_col5" class="data row31 col5">Fitted, sleeveless dress in ribbed jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row32" class="row_heading level0 row32" data-quarto-table-cell-role="th">32</td>
+<td id="T_cefd9_row32_col0" class="data row32 col0">Lena Rib Dress (1)</td>
+<td id="T_cefd9_row32_col1" class="data row32 col1">Dress</td>
+<td id="T_cefd9_row32_col2" class="data row32 col2">Garment Full body</td>
+<td id="T_cefd9_row32_col3" class="data row32 col3">Melange</td>
+<td id="T_cefd9_row32_col4" class="data row32 col4">Grey</td>
+<td id="T_cefd9_row32_col5" class="data row32 col5">Fitted, sleeveless dress in ribbed jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row33" class="row_heading level0 row33" data-quarto-table-cell-role="th">33</td>
+<td id="T_cefd9_row33_col0" class="data row33 col0">Lena Rib Dress (1)</td>
+<td id="T_cefd9_row33_col1" class="data row33 col1">Dress</td>
+<td id="T_cefd9_row33_col2" class="data row33 col2">Garment Full body</td>
+<td id="T_cefd9_row33_col3" class="data row33 col3">Melange</td>
+<td id="T_cefd9_row33_col4" class="data row33 col4">Dark Green</td>
+<td id="T_cefd9_row33_col5" class="data row33 col5">Fitted, sleeveless dress in ribbed jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row34" class="row_heading level0 row34" data-quarto-table-cell-role="th">34</td>
+<td id="T_cefd9_row34_col0" class="data row34 col0">Lena Rib Dress (1)</td>
+<td id="T_cefd9_row34_col1" class="data row34 col1">Dress</td>
+<td id="T_cefd9_row34_col2" class="data row34 col2">Garment Full body</td>
+<td id="T_cefd9_row34_col3" class="data row34 col3">Stripe</td>
+<td id="T_cefd9_row34_col4" class="data row34 col4">White</td>
+<td id="T_cefd9_row34_col5" class="data row34 col5">Fitted, sleeveless dress in ribbed jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row35" class="row_heading level0 row35" data-quarto-table-cell-role="th">35</td>
+<td id="T_cefd9_row35_col0" class="data row35 col0">Lena Rib Dress (1)</td>
+<td id="T_cefd9_row35_col1" class="data row35 col1">Dress</td>
+<td id="T_cefd9_row35_col2" class="data row35 col2">Garment Full body</td>
+<td id="T_cefd9_row35_col3" class="data row35 col3">Solid</td>
+<td id="T_cefd9_row35_col4" class="data row35 col4">Greenish Khaki</td>
+<td id="T_cefd9_row35_col5" class="data row35 col5">Fitted, sleeveless dress in ribbed jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row36" class="row_heading level0 row36" data-quarto-table-cell-role="th">36</td>
+<td id="T_cefd9_row36_col0" class="data row36 col0">Lena Rib Dress (1)</td>
+<td id="T_cefd9_row36_col1" class="data row36 col1">Dress</td>
+<td id="T_cefd9_row36_col2" class="data row36 col2">Garment Full body</td>
+<td id="T_cefd9_row36_col3" class="data row36 col3">Solid</td>
+<td id="T_cefd9_row36_col4" class="data row36 col4">Orange</td>
+<td id="T_cefd9_row36_col5" class="data row36 col5">Fitted, sleeveless dress in ribbed jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row37" class="row_heading level0 row37" data-quarto-table-cell-role="th">37</td>
+<td id="T_cefd9_row37_col0" class="data row37 col0">Dress LS Basic</td>
+<td id="T_cefd9_row37_col1" class="data row37 col1">Dress</td>
+<td id="T_cefd9_row37_col2" class="data row37 col2">Garment Full body</td>
+<td id="T_cefd9_row37_col3" class="data row37 col3">All over pattern</td>
+<td id="T_cefd9_row37_col4" class="data row37 col4">Red</td>
+<td id="T_cefd9_row37_col5" class="data row37 col5">Long-sleeved dress in soft, patterned organic cotton jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row38" class="row_heading level0 row38" data-quarto-table-cell-role="th">38</td>
+<td id="T_cefd9_row38_col0" class="data row38 col0">Dress LS Basic</td>
+<td id="T_cefd9_row38_col1" class="data row38 col1">Dress</td>
+<td id="T_cefd9_row38_col2" class="data row38 col2">Garment Full body</td>
+<td id="T_cefd9_row38_col3" class="data row38 col3">All over pattern</td>
+<td id="T_cefd9_row38_col4" class="data row38 col4">Red</td>
+<td id="T_cefd9_row38_col5" class="data row38 col5">Long-sleeved dress in soft, patterned organic cotton jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row39" class="row_heading level0 row39" data-quarto-table-cell-role="th">39</td>
+<td id="T_cefd9_row39_col0" class="data row39 col0">Dress LS Basic</td>
+<td id="T_cefd9_row39_col1" class="data row39 col1">Dress</td>
+<td id="T_cefd9_row39_col2" class="data row39 col2">Garment Full body</td>
+<td id="T_cefd9_row39_col3" class="data row39 col3">All over pattern</td>
+<td id="T_cefd9_row39_col4" class="data row39 col4">Yellow</td>
+<td id="T_cefd9_row39_col5" class="data row39 col5">Long-sleeved dress in soft, patterned organic cotton jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row40" class="row_heading level0 row40" data-quarto-table-cell-role="th">40</td>
+<td id="T_cefd9_row40_col0" class="data row40 col0">Dress LS Basic</td>
+<td id="T_cefd9_row40_col1" class="data row40 col1">Dress</td>
+<td id="T_cefd9_row40_col2" class="data row40 col2">Garment Full body</td>
+<td id="T_cefd9_row40_col3" class="data row40 col3">All over pattern</td>
+<td id="T_cefd9_row40_col4" class="data row40 col4">Dark Blue</td>
+<td id="T_cefd9_row40_col5" class="data row40 col5">Long-sleeved dress in soft, patterned organic cotton jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row41" class="row_heading level0 row41" data-quarto-table-cell-role="th">41</td>
+<td id="T_cefd9_row41_col0" class="data row41 col0">Dress LS Basic</td>
+<td id="T_cefd9_row41_col1" class="data row41 col1">Dress</td>
+<td id="T_cefd9_row41_col2" class="data row41 col2">Garment Full body</td>
+<td id="T_cefd9_row41_col3" class="data row41 col3">All over pattern</td>
+<td id="T_cefd9_row41_col4" class="data row41 col4">Light Pink</td>
+<td id="T_cefd9_row41_col5" class="data row41 col5">Long-sleeved dress in soft, patterned organic cotton jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row42" class="row_heading level0 row42" data-quarto-table-cell-role="th">42</td>
+<td id="T_cefd9_row42_col0" class="data row42 col0">Dress LS Basic</td>
+<td id="T_cefd9_row42_col1" class="data row42 col1">Dress</td>
+<td id="T_cefd9_row42_col2" class="data row42 col2">Garment Full body</td>
+<td id="T_cefd9_row42_col3" class="data row42 col3">All over pattern</td>
+<td id="T_cefd9_row42_col4" class="data row42 col4">Yellow</td>
+<td id="T_cefd9_row42_col5" class="data row42 col5">Long-sleeved dress in soft, patterned organic cotton jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row43" class="row_heading level0 row43" data-quarto-table-cell-role="th">43</td>
+<td id="T_cefd9_row43_col0" class="data row43 col0">LS frill dress</td>
+<td id="T_cefd9_row43_col1" class="data row43 col1">Dress</td>
+<td id="T_cefd9_row43_col2" class="data row43 col2">Garment Full body</td>
+<td id="T_cefd9_row43_col3" class="data row43 col3">All over pattern</td>
+<td id="T_cefd9_row43_col4" class="data row43 col4">Red</td>
+<td id="T_cefd9_row43_col5" class="data row43 col5">Long-sleeved dress in soft, patterned organic cotton jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row44" class="row_heading level0 row44" data-quarto-table-cell-role="th">44</td>
+<td id="T_cefd9_row44_col0" class="data row44 col0">Hilton</td>
+<td id="T_cefd9_row44_col1" class="data row44 col1">Dress</td>
+<td id="T_cefd9_row44_col2" class="data row44 col2">Garment Full body</td>
+<td id="T_cefd9_row44_col3" class="data row44 col3">Solid</td>
+<td id="T_cefd9_row44_col4" class="data row44 col4">Black</td>
+<td id="T_cefd9_row44_col5" class="data row44 col5">Strapless jersey dress with an elasticated waist. Inner top with elastication at the top.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row45" class="row_heading level0 row45" data-quarto-table-cell-role="th">45</td>
+<td id="T_cefd9_row45_col0" class="data row45 col0">Hilton</td>
+<td id="T_cefd9_row45_col1" class="data row45 col1">Dress</td>
+<td id="T_cefd9_row45_col2" class="data row45 col2">Garment Full body</td>
+<td id="T_cefd9_row45_col3" class="data row45 col3">Solid</td>
+<td id="T_cefd9_row45_col4" class="data row45 col4">Dark Blue</td>
+<td id="T_cefd9_row45_col5" class="data row45 col5">Strapless jersey dress with an elasticated waist. Inner top with elastication at the top.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row46" class="row_heading level0 row46" data-quarto-table-cell-role="th">46</td>
+<td id="T_cefd9_row46_col0" class="data row46 col0">Hilton</td>
+<td id="T_cefd9_row46_col1" class="data row46 col1">Dress</td>
+<td id="T_cefd9_row46_col2" class="data row46 col2">Garment Full body</td>
+<td id="T_cefd9_row46_col3" class="data row46 col3">Solid</td>
+<td id="T_cefd9_row46_col4" class="data row46 col4">Other</td>
+<td id="T_cefd9_row46_col5" class="data row46 col5">Strapless jersey dress with an elasticated waist. Inner top with elastication at the top.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row47" class="row_heading level0 row47" data-quarto-table-cell-role="th">47</td>
+<td id="T_cefd9_row47_col0" class="data row47 col0">Shirtdress Lou</td>
+<td id="T_cefd9_row47_col1" class="data row47 col1">Dress</td>
+<td id="T_cefd9_row47_col2" class="data row47 col2">Garment Full body</td>
+<td id="T_cefd9_row47_col3" class="data row47 col3">Denim</td>
+<td id="T_cefd9_row47_col4" class="data row47 col4">Blue</td>
+<td id="T_cefd9_row47_col5" class="data row47 col5">Long, straight-cut shirt in soft Tencel™ lyocell denim with a collar and buttons down the front. Chest pockets with a pleat, and long sleeves with buttoned cuffs.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row48" class="row_heading level0 row48" data-quarto-table-cell-role="th">48</td>
+<td id="T_cefd9_row48_col0" class="data row48 col0">Shirtdress Lou</td>
+<td id="T_cefd9_row48_col1" class="data row48 col1">Dress</td>
+<td id="T_cefd9_row48_col2" class="data row48 col2">Garment Full body</td>
+<td id="T_cefd9_row48_col3" class="data row48 col3">Denim</td>
+<td id="T_cefd9_row48_col4" class="data row48 col4">Green</td>
+<td id="T_cefd9_row48_col5" class="data row48 col5">Long, straight-cut shirt in soft Tencel™ lyocell denim with a collar and buttons down the front. Chest pockets with a pleat, and long sleeves with buttoned cuffs.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row49" class="row_heading level0 row49" data-quarto-table-cell-role="th">49</td>
+<td id="T_cefd9_row49_col0" class="data row49 col0">Lou Shirt Dress</td>
+<td id="T_cefd9_row49_col1" class="data row49 col1">Dress</td>
+<td id="T_cefd9_row49_col2" class="data row49 col2">Garment Full body</td>
+<td id="T_cefd9_row49_col3" class="data row49 col3">Solid</td>
+<td id="T_cefd9_row49_col4" class="data row49 col4">Blue</td>
+<td id="T_cefd9_row49_col5" class="data row49 col5">Long, straight-cut shirt in soft Tencel™ lyocell denim with a collar and buttons down the front. Chest pockets with a pleat, and long sleeves with buttoned cuffs.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row50" class="row_heading level0 row50" data-quarto-table-cell-role="th">50</td>
+<td id="T_cefd9_row50_col0" class="data row50 col0">Shirtdress Lou</td>
+<td id="T_cefd9_row50_col1" class="data row50 col1">Dress</td>
+<td id="T_cefd9_row50_col2" class="data row50 col2">Garment Full body</td>
+<td id="T_cefd9_row50_col3" class="data row50 col3">Denim</td>
+<td id="T_cefd9_row50_col4" class="data row50 col4">Blue</td>
+<td id="T_cefd9_row50_col5" class="data row50 col5">Long, straight-cut shirt in soft Tencel™ lyocell denim with a collar and buttons down the front. Chest pockets with a pleat, and long sleeves with buttoned cuffs.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row51" class="row_heading level0 row51" data-quarto-table-cell-role="th">51</td>
+<td id="T_cefd9_row51_col0" class="data row51 col0">Shirtdress Lou</td>
+<td id="T_cefd9_row51_col1" class="data row51 col1">Dress</td>
+<td id="T_cefd9_row51_col2" class="data row51 col2">Garment Full body</td>
+<td id="T_cefd9_row51_col3" class="data row51 col3">Denim</td>
+<td id="T_cefd9_row51_col4" class="data row51 col4">Blue</td>
+<td id="T_cefd9_row51_col5" class="data row51 col5">Long, straight-cut shirt in soft Tencel™ lyocell denim with a collar and buttons down the front. Chest pockets with a pleat, and long sleeves with buttoned cuffs.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row52" class="row_heading level0 row52" data-quarto-table-cell-role="th">52</td>
+<td id="T_cefd9_row52_col0" class="data row52 col0">Shirtdress Lou</td>
+<td id="T_cefd9_row52_col1" class="data row52 col1">Dress</td>
+<td id="T_cefd9_row52_col2" class="data row52 col2">Garment Full body</td>
+<td id="T_cefd9_row52_col3" class="data row52 col3">Denim</td>
+<td id="T_cefd9_row52_col4" class="data row52 col4">Dark Blue</td>
+<td id="T_cefd9_row52_col5" class="data row52 col5">Long, straight-cut shirt in soft Tencel™ lyocell denim with a collar and buttons down the front. Chest pockets with a pleat, and long sleeves with buttoned cuffs.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row53" class="row_heading level0 row53" data-quarto-table-cell-role="th">53</td>
+<td id="T_cefd9_row53_col0" class="data row53 col0">Edit dress (1)</td>
+<td id="T_cefd9_row53_col1" class="data row53 col1">Dress</td>
+<td id="T_cefd9_row53_col2" class="data row53 col2">Garment Full body</td>
+<td id="T_cefd9_row53_col3" class="data row53 col3">Solid</td>
+<td id="T_cefd9_row53_col4" class="data row53 col4">Black</td>
+<td id="T_cefd9_row53_col5" class="data row53 col5">Dress in soft cotton jersey with 3/4-length sleeves, a seam at the waist and bell-shaped skirt.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row54" class="row_heading level0 row54" data-quarto-table-cell-role="th">54</td>
+<td id="T_cefd9_row54_col0" class="data row54 col0">Edit dress (1)</td>
+<td id="T_cefd9_row54_col1" class="data row54 col1">Dress</td>
+<td id="T_cefd9_row54_col2" class="data row54 col2">Garment Full body</td>
+<td id="T_cefd9_row54_col3" class="data row54 col3">All over pattern</td>
+<td id="T_cefd9_row54_col4" class="data row54 col4">Dark Red</td>
+<td id="T_cefd9_row54_col5" class="data row54 col5">Dress in soft cotton jersey with 3/4-length sleeves, a seam at the waist and bell-shaped skirt.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row55" class="row_heading level0 row55" data-quarto-table-cell-role="th">55</td>
+<td id="T_cefd9_row55_col0" class="data row55 col0">Washington dress</td>
+<td id="T_cefd9_row55_col1" class="data row55 col1">Dress</td>
+<td id="T_cefd9_row55_col2" class="data row55 col2">Garment Full body</td>
+<td id="T_cefd9_row55_col3" class="data row55 col3">Solid</td>
+<td id="T_cefd9_row55_col4" class="data row55 col4">Black</td>
+<td id="T_cefd9_row55_col5" class="data row55 col5">Short jersey dress with narrow shoulder straps, a seam at the waist and bell-shaped skirt.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row56" class="row_heading level0 row56" data-quarto-table-cell-role="th">56</td>
+<td id="T_cefd9_row56_col0" class="data row56 col0">Washington dress</td>
+<td id="T_cefd9_row56_col1" class="data row56 col1">Dress</td>
+<td id="T_cefd9_row56_col2" class="data row56 col2">Garment Full body</td>
+<td id="T_cefd9_row56_col3" class="data row56 col3">Stripe</td>
+<td id="T_cefd9_row56_col4" class="data row56 col4">White</td>
+<td id="T_cefd9_row56_col5" class="data row56 col5">Short jersey dress with narrow shoulder straps, a seam at the waist and bell-shaped skirt.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row57" class="row_heading level0 row57" data-quarto-table-cell-role="th">57</td>
+<td id="T_cefd9_row57_col0" class="data row57 col0">Washington dress</td>
+<td id="T_cefd9_row57_col1" class="data row57 col1">Dress</td>
+<td id="T_cefd9_row57_col2" class="data row57 col2">Garment Full body</td>
+<td id="T_cefd9_row57_col3" class="data row57 col3">Solid</td>
+<td id="T_cefd9_row57_col4" class="data row57 col4">Greenish Khaki</td>
+<td id="T_cefd9_row57_col5" class="data row57 col5">Short jersey dress with narrow shoulder straps, a seam at the waist and bell-shaped skirt.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row58" class="row_heading level0 row58" data-quarto-table-cell-role="th">58</td>
+<td id="T_cefd9_row58_col0" class="data row58 col0">Washington dress</td>
+<td id="T_cefd9_row58_col1" class="data row58 col1">Dress</td>
+<td id="T_cefd9_row58_col2" class="data row58 col2">Garment Full body</td>
+<td id="T_cefd9_row58_col3" class="data row58 col3">Solid</td>
+<td id="T_cefd9_row58_col4" class="data row58 col4">Light Yellow</td>
+<td id="T_cefd9_row58_col5" class="data row58 col5">Short jersey dress with narrow shoulder straps, a seam at the waist and bell-shaped skirt.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row59" class="row_heading level0 row59" data-quarto-table-cell-role="th">59</td>
+<td id="T_cefd9_row59_col0" class="data row59 col0">LEA jumpsuit</td>
+<td id="T_cefd9_row59_col1" class="data row59 col1">Dress</td>
+<td id="T_cefd9_row59_col2" class="data row59 col2">Garment Full body</td>
+<td id="T_cefd9_row59_col3" class="data row59 col3">Solid</td>
+<td id="T_cefd9_row59_col4" class="data row59 col4">Black</td>
+<td id="T_cefd9_row59_col5" class="data row59 col5">Sleeveless jersey jumpsuit with a deep neckline at the back, elasticated seam at the waist, side pockets and tapered legs.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row60" class="row_heading level0 row60" data-quarto-table-cell-role="th">60</td>
+<td id="T_cefd9_row60_col0" class="data row60 col0">LEA jumpsuit</td>
+<td id="T_cefd9_row60_col1" class="data row60 col1">Dress</td>
+<td id="T_cefd9_row60_col2" class="data row60 col2">Garment Full body</td>
+<td id="T_cefd9_row60_col3" class="data row60 col3">Melange</td>
+<td id="T_cefd9_row60_col4" class="data row60 col4">Black</td>
+<td id="T_cefd9_row60_col5" class="data row60 col5">Sleeveless jersey jumpsuit with a deep neckline at the back, elasticated seam at the waist, side pockets and tapered legs.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row61" class="row_heading level0 row61" data-quarto-table-cell-role="th">61</td>
+<td id="T_cefd9_row61_col0" class="data row61 col0">LEA jumpsuit</td>
+<td id="T_cefd9_row61_col1" class="data row61 col1">Dress</td>
+<td id="T_cefd9_row61_col2" class="data row61 col2">Garment Full body</td>
+<td id="T_cefd9_row61_col3" class="data row61 col3">Solid</td>
+<td id="T_cefd9_row61_col4" class="data row61 col4">Greenish Khaki</td>
+<td id="T_cefd9_row61_col5" class="data row61 col5">Sleeveless jersey jumpsuit with a deep neckline at the back, elasticated seam at the waist, side pockets and tapered legs.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row62" class="row_heading level0 row62" data-quarto-table-cell-role="th">62</td>
+<td id="T_cefd9_row62_col0" class="data row62 col0">Colette dress</td>
+<td id="T_cefd9_row62_col1" class="data row62 col1">Dress</td>
+<td id="T_cefd9_row62_col2" class="data row62 col2">Garment Full body</td>
+<td id="T_cefd9_row62_col3" class="data row62 col3">All over pattern</td>
+<td id="T_cefd9_row62_col4" class="data row62 col4">Black</td>
+<td id="T_cefd9_row62_col5" class="data row62 col5">Short, gently fitted dress in a patterned weave with a small stand-up collar, covered buttons at the back, long sleeves with a flounce at the cuffs and a flounce at the hem. Jersey lining.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row63" class="row_heading level0 row63" data-quarto-table-cell-role="th">63</td>
+<td id="T_cefd9_row63_col0" class="data row63 col0">Colette dress</td>
+<td id="T_cefd9_row63_col1" class="data row63 col1">Dress</td>
+<td id="T_cefd9_row63_col2" class="data row63 col2">Garment Full body</td>
+<td id="T_cefd9_row63_col3" class="data row63 col3">All over pattern</td>
+<td id="T_cefd9_row63_col4" class="data row63 col4">Dark Blue</td>
+<td id="T_cefd9_row63_col5" class="data row63 col5">Short, gently fitted dress in a patterned weave with a small stand-up collar, covered buttons at the back, long sleeves with a flounce at the cuffs and a flounce at the hem. Jersey lining.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row64" class="row_heading level0 row64" data-quarto-table-cell-role="th">64</td>
+<td id="T_cefd9_row64_col0" class="data row64 col0">Wilma dress (1)</td>
+<td id="T_cefd9_row64_col1" class="data row64 col1">Dress</td>
+<td id="T_cefd9_row64_col2" class="data row64 col2">Garment Full body</td>
+<td id="T_cefd9_row64_col3" class="data row64 col3">Solid</td>
+<td id="T_cefd9_row64_col4" class="data row64 col4">Black</td>
+<td id="T_cefd9_row64_col5" class="data row64 col5">Short, sleeveless, fitted dress in jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row65" class="row_heading level0 row65" data-quarto-table-cell-role="th">65</td>
+<td id="T_cefd9_row65_col0" class="data row65 col0">Wilma dress (1)</td>
+<td id="T_cefd9_row65_col1" class="data row65 col1">Dress</td>
+<td id="T_cefd9_row65_col2" class="data row65 col2">Garment Full body</td>
+<td id="T_cefd9_row65_col3" class="data row65 col3">Stripe</td>
+<td id="T_cefd9_row65_col4" class="data row65 col4">White</td>
+<td id="T_cefd9_row65_col5" class="data row65 col5">Short, sleeveless, fitted dress in jersey.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row66" class="row_heading level0 row66" data-quarto-table-cell-role="th">66</td>
+<td id="T_cefd9_row66_col0" class="data row66 col0">Wilma dress (1)</td>
+<td id="T_cefd9_row66_col1" class="data row66 col1">Dress</td>
+<td id="T_cefd9_row66_col2" class="data row66 col2">Garment Full body</td>
+<td id="T_cefd9_row66_col3" class="data row66 col3">Stripe</td>
+<td id="T_cefd9_row66_col4" class="data row66 col4">Black</td>
+<td id="T_cefd9_row66_col5" class="data row66 col5">Short, sleeveless, fitted dress in jersey.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row67" class="row_heading level0 row67" data-quarto-table-cell-role="th">67</td>
+<td id="T_cefd9_row67_col0" class="data row67 col0">SPEED Pavlova dress</td>
+<td id="T_cefd9_row67_col1" class="data row67 col1">Dress</td>
+<td id="T_cefd9_row67_col2" class="data row67 col2">Garment Full body</td>
+<td id="T_cefd9_row67_col3" class="data row67 col3">Solid</td>
+<td id="T_cefd9_row67_col4" class="data row67 col4">Black</td>
+<td id="T_cefd9_row67_col5" class="data row67 col5">Sleeveless, knee-length dress in pleated jersey with a V-neck and crossover, decorative straps at the back. Narrow elasticated seam at the waist and gently flared skirt. Unlined.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row68" class="row_heading level0 row68" data-quarto-table-cell-role="th">68</td>
+<td id="T_cefd9_row68_col0" class="data row68 col0">SPEED Pavlova dress</td>
+<td id="T_cefd9_row68_col1" class="data row68 col1">Dress</td>
+<td id="T_cefd9_row68_col2" class="data row68 col2">Garment Full body</td>
+<td id="T_cefd9_row68_col3" class="data row68 col3">Solid</td>
+<td id="T_cefd9_row68_col4" class="data row68 col4">Pink</td>
+<td id="T_cefd9_row68_col5" class="data row68 col5">Sleeveless, knee-length dress in pleated jersey with a V-neck and crossover, decorative straps at the back. Narrow elasticated seam at the waist and gently flared skirt. Unlined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row69" class="row_heading level0 row69" data-quarto-table-cell-role="th">69</td>
+<td id="T_cefd9_row69_col0" class="data row69 col0">Wanda Dress</td>
+<td id="T_cefd9_row69_col1" class="data row69 col1">Dress</td>
+<td id="T_cefd9_row69_col2" class="data row69 col2">Garment Full body</td>
+<td id="T_cefd9_row69_col3" class="data row69 col3">Treatment</td>
+<td id="T_cefd9_row69_col4" class="data row69 col4">Black</td>
+<td id="T_cefd9_row69_col5" class="data row69 col5">Short T-shirt dress in soft jersey with short cap sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row70" class="row_heading level0 row70" data-quarto-table-cell-role="th">70</td>
+<td id="T_cefd9_row70_col0" class="data row70 col0">Wanda Dress</td>
+<td id="T_cefd9_row70_col1" class="data row70 col1">Dress</td>
+<td id="T_cefd9_row70_col2" class="data row70 col2">Garment Full body</td>
+<td id="T_cefd9_row70_col3" class="data row70 col3">Front print</td>
+<td id="T_cefd9_row70_col4" class="data row70 col4">Black</td>
+<td id="T_cefd9_row70_col5" class="data row70 col5">Short T-shirt dress in soft jersey with short cap sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row71" class="row_heading level0 row71" data-quarto-table-cell-role="th">71</td>
+<td id="T_cefd9_row71_col0" class="data row71 col0">Wanda Dress</td>
+<td id="T_cefd9_row71_col1" class="data row71 col1">Dress</td>
+<td id="T_cefd9_row71_col2" class="data row71 col2">Garment Full body</td>
+<td id="T_cefd9_row71_col3" class="data row71 col3">Treatment</td>
+<td id="T_cefd9_row71_col4" class="data row71 col4">Beige</td>
+<td id="T_cefd9_row71_col5" class="data row71 col5">Short T-shirt dress in soft jersey with short cap sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row72" class="row_heading level0 row72" data-quarto-table-cell-role="th">72</td>
+<td id="T_cefd9_row72_col0" class="data row72 col0">Wanda Dress (1)</td>
+<td id="T_cefd9_row72_col1" class="data row72 col1">Dress</td>
+<td id="T_cefd9_row72_col2" class="data row72 col2">Garment Full body</td>
+<td id="T_cefd9_row72_col3" class="data row72 col3">Front print</td>
+<td id="T_cefd9_row72_col4" class="data row72 col4">Black</td>
+<td id="T_cefd9_row72_col5" class="data row72 col5">Short T-shirt dress in soft jersey with short cap sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row73" class="row_heading level0 row73" data-quarto-table-cell-role="th">73</td>
+<td id="T_cefd9_row73_col0" class="data row73 col0">Wanda Dress (1)</td>
+<td id="T_cefd9_row73_col1" class="data row73 col1">Dress</td>
+<td id="T_cefd9_row73_col2" class="data row73 col2">Garment Full body</td>
+<td id="T_cefd9_row73_col3" class="data row73 col3">Front print</td>
+<td id="T_cefd9_row73_col4" class="data row73 col4">Beige</td>
+<td id="T_cefd9_row73_col5" class="data row73 col5">Short T-shirt dress in soft jersey with short cap sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row74" class="row_heading level0 row74" data-quarto-table-cell-role="th">74</td>
+<td id="T_cefd9_row74_col0" class="data row74 col0">Wanda Dress</td>
+<td id="T_cefd9_row74_col1" class="data row74 col1">Dress</td>
+<td id="T_cefd9_row74_col2" class="data row74 col2">Garment Full body</td>
+<td id="T_cefd9_row74_col3" class="data row74 col3">Front print</td>
+<td id="T_cefd9_row74_col4" class="data row74 col4">Black</td>
+<td id="T_cefd9_row74_col5" class="data row74 col5">Short T-shirt dress in soft jersey with short cap sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row75" class="row_heading level0 row75" data-quarto-table-cell-role="th">75</td>
+<td id="T_cefd9_row75_col0" class="data row75 col0">Cora Dress</td>
+<td id="T_cefd9_row75_col1" class="data row75 col1">Dress</td>
+<td id="T_cefd9_row75_col2" class="data row75 col2">Garment Full body</td>
+<td id="T_cefd9_row75_col3" class="data row75 col3">Treatment</td>
+<td id="T_cefd9_row75_col4" class="data row75 col4">Dark Grey</td>
+<td id="T_cefd9_row75_col5" class="data row75 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row76" class="row_heading level0 row76" data-quarto-table-cell-role="th">76</td>
+<td id="T_cefd9_row76_col0" class="data row76 col0">Cora Dress</td>
+<td id="T_cefd9_row76_col1" class="data row76 col1">Dress</td>
+<td id="T_cefd9_row76_col2" class="data row76 col2">Garment Full body</td>
+<td id="T_cefd9_row76_col3" class="data row76 col3">Solid</td>
+<td id="T_cefd9_row76_col4" class="data row76 col4">Black</td>
+<td id="T_cefd9_row76_col5" class="data row76 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row77" class="row_heading level0 row77" data-quarto-table-cell-role="th">77</td>
+<td id="T_cefd9_row77_col0" class="data row77 col0">Cora Dress</td>
+<td id="T_cefd9_row77_col1" class="data row77 col1">Dress</td>
+<td id="T_cefd9_row77_col2" class="data row77 col2">Garment Full body</td>
+<td id="T_cefd9_row77_col3" class="data row77 col3">Treatment</td>
+<td id="T_cefd9_row77_col4" class="data row77 col4">Greenish Khaki</td>
+<td id="T_cefd9_row77_col5" class="data row77 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row78" class="row_heading level0 row78" data-quarto-table-cell-role="th">78</td>
+<td id="T_cefd9_row78_col0" class="data row78 col0">Cora Dress</td>
+<td id="T_cefd9_row78_col1" class="data row78 col1">Dress</td>
+<td id="T_cefd9_row78_col2" class="data row78 col2">Garment Full body</td>
+<td id="T_cefd9_row78_col3" class="data row78 col3">All over pattern</td>
+<td id="T_cefd9_row78_col4" class="data row78 col4">White</td>
+<td id="T_cefd9_row78_col5" class="data row78 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row79" class="row_heading level0 row79" data-quarto-table-cell-role="th">79</td>
+<td id="T_cefd9_row79_col0" class="data row79 col0">Cora Dress</td>
+<td id="T_cefd9_row79_col1" class="data row79 col1">Dress</td>
+<td id="T_cefd9_row79_col2" class="data row79 col2">Garment Full body</td>
+<td id="T_cefd9_row79_col3" class="data row79 col3">Solid</td>
+<td id="T_cefd9_row79_col4" class="data row79 col4">Dark Pink</td>
+<td id="T_cefd9_row79_col5" class="data row79 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row80" class="row_heading level0 row80" data-quarto-table-cell-role="th">80</td>
+<td id="T_cefd9_row80_col0" class="data row80 col0">Cora Dress</td>
+<td id="T_cefd9_row80_col1" class="data row80 col1">Dress</td>
+<td id="T_cefd9_row80_col2" class="data row80 col2">Garment Full body</td>
+<td id="T_cefd9_row80_col3" class="data row80 col3">All over pattern</td>
+<td id="T_cefd9_row80_col4" class="data row80 col4">Black</td>
+<td id="T_cefd9_row80_col5" class="data row80 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row81" class="row_heading level0 row81" data-quarto-table-cell-role="th">81</td>
+<td id="T_cefd9_row81_col0" class="data row81 col0">Cora Dress</td>
+<td id="T_cefd9_row81_col1" class="data row81 col1">Dress</td>
+<td id="T_cefd9_row81_col2" class="data row81 col2">Garment Full body</td>
+<td id="T_cefd9_row81_col3" class="data row81 col3">Solid</td>
+<td id="T_cefd9_row81_col4" class="data row81 col4">Dark Red</td>
+<td id="T_cefd9_row81_col5" class="data row81 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row82" class="row_heading level0 row82" data-quarto-table-cell-role="th">82</td>
+<td id="T_cefd9_row82_col0" class="data row82 col0">Cora Dress</td>
+<td id="T_cefd9_row82_col1" class="data row82 col1">Dress</td>
+<td id="T_cefd9_row82_col2" class="data row82 col2">Garment Full body</td>
+<td id="T_cefd9_row82_col3" class="data row82 col3">All over pattern</td>
+<td id="T_cefd9_row82_col4" class="data row82 col4">Beige</td>
+<td id="T_cefd9_row82_col5" class="data row82 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row83" class="row_heading level0 row83" data-quarto-table-cell-role="th">83</td>
+<td id="T_cefd9_row83_col0" class="data row83 col0">Cora Dress</td>
+<td id="T_cefd9_row83_col1" class="data row83 col1">Dress</td>
+<td id="T_cefd9_row83_col2" class="data row83 col2">Garment Full body</td>
+<td id="T_cefd9_row83_col3" class="data row83 col3">Solid</td>
+<td id="T_cefd9_row83_col4" class="data row83 col4">Dark Pink</td>
+<td id="T_cefd9_row83_col5" class="data row83 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row84" class="row_heading level0 row84" data-quarto-table-cell-role="th">84</td>
+<td id="T_cefd9_row84_col0" class="data row84 col0">Cora Dress</td>
+<td id="T_cefd9_row84_col1" class="data row84 col1">Dress</td>
+<td id="T_cefd9_row84_col2" class="data row84 col2">Garment Full body</td>
+<td id="T_cefd9_row84_col3" class="data row84 col3">All over pattern</td>
+<td id="T_cefd9_row84_col4" class="data row84 col4">Black</td>
+<td id="T_cefd9_row84_col5" class="data row84 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row85" class="row_heading level0 row85" data-quarto-table-cell-role="th">85</td>
+<td id="T_cefd9_row85_col0" class="data row85 col0">Cora Dress</td>
+<td id="T_cefd9_row85_col1" class="data row85 col1">Dress</td>
+<td id="T_cefd9_row85_col2" class="data row85 col2">Garment Full body</td>
+<td id="T_cefd9_row85_col3" class="data row85 col3">All over pattern</td>
+<td id="T_cefd9_row85_col4" class="data row85 col4">White</td>
+<td id="T_cefd9_row85_col5" class="data row85 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row86" class="row_heading level0 row86" data-quarto-table-cell-role="th">86</td>
+<td id="T_cefd9_row86_col0" class="data row86 col0">Cora Dress</td>
+<td id="T_cefd9_row86_col1" class="data row86 col1">Dress</td>
+<td id="T_cefd9_row86_col2" class="data row86 col2">Garment Full body</td>
+<td id="T_cefd9_row86_col3" class="data row86 col3">All over pattern</td>
+<td id="T_cefd9_row86_col4" class="data row86 col4">Dark Green</td>
+<td id="T_cefd9_row86_col5" class="data row86 col5">Short dress in a washed viscose weave with a round neck, short sleeves with sewn-in turn-ups, and a rounded hem. Slightly longer at the back.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row87" class="row_heading level0 row87" data-quarto-table-cell-role="th">87</td>
+<td id="T_cefd9_row87_col0" class="data row87 col0">Newman dress</td>
+<td id="T_cefd9_row87_col1" class="data row87 col1">Dress</td>
+<td id="T_cefd9_row87_col2" class="data row87 col2">Garment Full body</td>
+<td id="T_cefd9_row87_col3" class="data row87 col3">All over pattern</td>
+<td id="T_cefd9_row87_col4" class="data row87 col4">Off White</td>
+<td id="T_cefd9_row87_col5" class="data row87 col5">Strapless dress in a crinkled, patterned weave with elastication and a flounce at the top, an elasticated waist and a flounce at the hem. Longer at the back. Unlined.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row88" class="row_heading level0 row88" data-quarto-table-cell-role="th">88</td>
+<td id="T_cefd9_row88_col0" class="data row88 col0">Corinne jumpsuit</td>
+<td id="T_cefd9_row88_col1" class="data row88 col1">Dress</td>
+<td id="T_cefd9_row88_col2" class="data row88 col2">Garment Full body</td>
+<td id="T_cefd9_row88_col3" class="data row88 col3">All over pattern</td>
+<td id="T_cefd9_row88_col4" class="data row88 col4">Light Pink</td>
+<td id="T_cefd9_row88_col5" class="data row88 col5">Playsuit in woven fabric with decorative lace trims, a wrapover front with a concealed press-stud, narrow adjustable shoulder straps that cross at the back and an elasticated waist. Smocking at the back, side pockets and short legs. Lined at the top.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row89" class="row_heading level0 row89" data-quarto-table-cell-role="th">89</td>
+<td id="T_cefd9_row89_col0" class="data row89 col0">Corinne jumpsuit</td>
+<td id="T_cefd9_row89_col1" class="data row89 col1">Dress</td>
+<td id="T_cefd9_row89_col2" class="data row89 col2">Garment Full body</td>
+<td id="T_cefd9_row89_col3" class="data row89 col3">Solid</td>
+<td id="T_cefd9_row89_col4" class="data row89 col4">Light Pink</td>
+<td id="T_cefd9_row89_col5" class="data row89 col5">Playsuit in woven fabric with decorative lace trims, a wrapover front with a concealed press-stud, narrow adjustable shoulder straps that cross at the back and an elasticated waist. Smocking at the back, side pockets and short legs. Lined at the top.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row90" class="row_heading level0 row90" data-quarto-table-cell-role="th">90</td>
+<td id="T_cefd9_row90_col0" class="data row90 col0">Tony woven jumpsuit</td>
+<td id="T_cefd9_row90_col1" class="data row90 col1">Dress</td>
+<td id="T_cefd9_row90_col2" class="data row90 col2">Garment Full body</td>
+<td id="T_cefd9_row90_col3" class="data row90 col3">All over pattern</td>
+<td id="T_cefd9_row90_col4" class="data row90 col4">Light Blue</td>
+<td id="T_cefd9_row90_col5" class="data row90 col5">Off-the-shoulder playsuit in an airy, patterned weave with a flounce at the top, an elasticated seam at the waist and short legs. Lined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row91" class="row_heading level0 row91" data-quarto-table-cell-role="th">91</td>
+<td id="T_cefd9_row91_col0" class="data row91 col0">Chung woven dress</td>
+<td id="T_cefd9_row91_col1" class="data row91 col1">Dress</td>
+<td id="T_cefd9_row91_col2" class="data row91 col2">Garment Full body</td>
+<td id="T_cefd9_row91_col3" class="data row91 col3">Solid</td>
+<td id="T_cefd9_row91_col4" class="data row91 col4">Dark Red</td>
+<td id="T_cefd9_row91_col5" class="data row91 col5">Short dress in a crêpe weave with a collar and cuffs in lace. The dress has pleats at the top, a concealed zip at the back, long sleeves, a seam at the waist and gently flared skirt. Unlined.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row92" class="row_heading level0 row92" data-quarto-table-cell-role="th">92</td>
+<td id="T_cefd9_row92_col0" class="data row92 col0">Beatle dress</td>
+<td id="T_cefd9_row92_col1" class="data row92 col1">Dress</td>
+<td id="T_cefd9_row92_col2" class="data row92 col2">Garment Full body</td>
+<td id="T_cefd9_row92_col3" class="data row92 col3">Solid</td>
+<td id="T_cefd9_row92_col4" class="data row92 col4">Black</td>
+<td id="T_cefd9_row92_col5" class="data row92 col5">Short dress in ribbed jersey with an opening with a covered button at the back of the neck, 3/4-length sleeves and flared skirt.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row93" class="row_heading level0 row93" data-quarto-table-cell-role="th">93</td>
+<td id="T_cefd9_row93_col0" class="data row93 col0">Beatle dress</td>
+<td id="T_cefd9_row93_col1" class="data row93 col1">Dress</td>
+<td id="T_cefd9_row93_col2" class="data row93 col2">Garment Full body</td>
+<td id="T_cefd9_row93_col3" class="data row93 col3">Melange</td>
+<td id="T_cefd9_row93_col4" class="data row93 col4">Dark Grey</td>
+<td id="T_cefd9_row93_col5" class="data row93 col5">Short dress in ribbed jersey with an opening with a covered button at the back of the neck, 3/4-length sleeves and flared skirt.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row94" class="row_heading level0 row94" data-quarto-table-cell-role="th">94</td>
+<td id="T_cefd9_row94_col0" class="data row94 col0">Zoey woven dress</td>
+<td id="T_cefd9_row94_col1" class="data row94 col1">Dress</td>
+<td id="T_cefd9_row94_col2" class="data row94 col2">Garment Full body</td>
+<td id="T_cefd9_row94_col3" class="data row94 col3">Solid</td>
+<td id="T_cefd9_row94_col4" class="data row94 col4">Dark Red</td>
+<td id="T_cefd9_row94_col5" class="data row94 col5">Short dress in viscose crêpe with lace insets. The dress has an opening with a button at the back of the neck, long sleeves and yoke in mesh, a concealed zip in the side and gentle flare to the hem. Unlined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row95" class="row_heading level0 row95" data-quarto-table-cell-role="th">95</td>
+<td id="T_cefd9_row95_col0" class="data row95 col0">Maserati dress</td>
+<td id="T_cefd9_row95_col1" class="data row95 col1">Dress</td>
+<td id="T_cefd9_row95_col2" class="data row95 col2">Garment Full body</td>
+<td id="T_cefd9_row95_col3" class="data row95 col3">All over pattern</td>
+<td id="T_cefd9_row95_col4" class="data row95 col4">Other</td>
+<td id="T_cefd9_row95_col5" class="data row95 col5">Sleeveless dress in a crêpe weave with decorative gathers at the top. Elasticated seam under the bust and an opening with a hook-and-eye fastener at the back of the neck. Lined.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row96" class="row_heading level0 row96" data-quarto-table-cell-role="th">96</td>
+<td id="T_cefd9_row96_col0" class="data row96 col0">Maserati dress</td>
+<td id="T_cefd9_row96_col1" class="data row96 col1">Dress</td>
+<td id="T_cefd9_row96_col2" class="data row96 col2">Garment Full body</td>
+<td id="T_cefd9_row96_col3" class="data row96 col3">Solid</td>
+<td id="T_cefd9_row96_col4" class="data row96 col4">Red</td>
+<td id="T_cefd9_row96_col5" class="data row96 col5">Sleeveless dress in a crêpe weave with decorative gathers at the top. Elasticated seam under the bust and an opening with a hook-and-eye fastener at the back of the neck. Lined.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row97" class="row_heading level0 row97" data-quarto-table-cell-role="th">97</td>
+<td id="T_cefd9_row97_col0" class="data row97 col0">Tiffany dress</td>
+<td id="T_cefd9_row97_col1" class="data row97 col1">Dress</td>
+<td id="T_cefd9_row97_col2" class="data row97 col2">Garment Full body</td>
+<td id="T_cefd9_row97_col3" class="data row97 col3">Solid</td>
+<td id="T_cefd9_row97_col4" class="data row97 col4">Black</td>
+<td id="T_cefd9_row97_col5" class="data row97 col5">Short, fitted dress in ribbed viscose jersey with a turtle neck and long sleeves.</td>
+</tr>
+<tr class="odd">
+<td id="T_cefd9_level0_row98" class="row_heading level0 row98" data-quarto-table-cell-role="th">98</td>
+<td id="T_cefd9_row98_col0" class="data row98 col0">Tiffany dress</td>
+<td id="T_cefd9_row98_col1" class="data row98 col1">Dress</td>
+<td id="T_cefd9_row98_col2" class="data row98 col2">Garment Full body</td>
+<td id="T_cefd9_row98_col3" class="data row98 col3">Solid</td>
+<td id="T_cefd9_row98_col4" class="data row98 col4">Greenish Khaki</td>
+<td id="T_cefd9_row98_col5" class="data row98 col5">Short, fitted dress in ribbed viscose jersey with a turtle neck and long sleeves.</td>
+</tr>
+<tr class="even">
+<td id="T_cefd9_level0_row99" class="row_heading level0 row99" data-quarto-table-cell-role="th">99</td>
+<td id="T_cefd9_row99_col0" class="data row99 col0">Tiffany dress</td>
+<td id="T_cefd9_row99_col1" class="data row99 col1">Dress</td>
+<td id="T_cefd9_row99_col2" class="data row99 col2">Garment Full body</td>
+<td id="T_cefd9_row99_col3" class="data row99 col3">Melange</td>
+<td id="T_cefd9_row99_col4" class="data row99 col4">Pink</td>
+<td id="T_cefd9_row99_col5" class="data row99 col5">Short, fitted dress in ribbed viscose jersey with a turtle neck and long sleeves.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Total number of products: 100
+
+Product Types Distribution:
+Product Type
+Dress    100
+Name: count, dtype: int64
+
+Color Groups Distribution:
+Color Group
+Black             21
+White              8
+Greenish Khaki     8
+Dark Blue          8
+Red                6
+Light Pink         6
+Dark Red           5
+Blue               5
+Dark Pink          4
+Dark Grey          3
+Beige              3
+Off White          3
+Grey               3
+Dark Green         3
+Orange             2
+Yellow             2
+Other              2
+Pink               2
+Light Beige        1
+Dark Purple        1
+Dark Orange        1
+Green              1
+Light Yellow       1
+Light Blue         1
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

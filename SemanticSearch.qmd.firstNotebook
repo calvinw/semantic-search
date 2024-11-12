@@ -1,10 +1,19 @@
+---
+title: "Semantic Search"
+---
+
+
+
+```{python}
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import numpy as np
 import pickle
 import torch
 from sklearn.metrics.pairwise import cosine_similarity
+```
 
+```{python}
 model = SentenceTransformer('all-MiniLM-L6-v2', device="cpu")
 
 image_path = "https://github.com/calvinw/semantic-search/blob/main/images/"
@@ -40,5 +49,5 @@ for i, query in enumerate(queries):
     results, similarities = semantic_search(query, data, model, top_n=5)
     for idx, (index, row) in enumerate(results.iterrows()):
         print(f"Rank {idx + 1}:\nArticle ID: {row['article_id']}\nCombined Text: {row['combined_text']}\nSimilarity: {similarities[idx]:.4f}\n")
-
+```
 

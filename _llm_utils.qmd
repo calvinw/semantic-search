@@ -1,0 +1,99 @@
+
+```{python}
+#| eval: true
+#| code-fold: true
+import textwrap
+from langchain_core.prompts import ChatPromptTemplate
+
+from IPython.display import display, clear_output, Markdown
+from ipywidgets import widgets, Layout
+
+conversation_output = widgets.Output()
+messages = []
+
+def run_chatbot(system_prompt, initial_message):
+    global messages 
+    messages = [ {'role':'system', 'content': system_prompt} ]
+    conversation_output.clear_output()
+
+    messages.append({'role': 'assistant', 'content': initial_message})
+
+    text_input = widgets.Text(
+        placeholder='Type your message here...',
+        layout=widgets.Layout(width='50%')
+    )
+    submit_button = widgets.Button(description="Send")
+
+    input_box = widgets.HBox([text_input, submit_button])
+    display(conversation_output, input_box)
+
+    def on_submit_click(b):
+        message = text_input.value
+        text_input.value = ''  # Clear the input field
+
+        with conversation_output:
+            display(Markdown(f"**User**: {message}"))
+            messages.append({'role': 'user', 'content': message})
+            response = get_completion_messages(messages)
+            display(Markdown(f"**AI**: {response}"))
+            messages.append({'role': 'assistant', 'content': response})
+
+    submit_button.on_click(on_submit_click)
+
+    # Display initial AI message
+    with conversation_output:
+        display(Markdown(f"**AI**: {initial_message}"))
+
+def wrap_text(text, max_width=80):
+    """
+    Wraps the text to the specified max_width, preserving line breaks and formatting.
+    """
+    text = text.lstrip()
+    lines = text.splitlines()  # Split the text into lines
+    wrapped_lines = []
+    for line in lines:
+        if line.strip():  # Skip empty lines
+            wrapped_line = textwrap.fill(line, max_width, initial_indent='', subsequent_indent='')
+            wrapped_lines.extend(wrapped_line.splitlines())  # Preserve line breaks
+        else:
+            wrapped_lines.append('')  # Keep empty lines
+    return '\n'.join(wrapped_lines)
+
+def print_messages():
+    for message in messages:
+        role = message['role']
+        content = message['content']
+        
+        if role == 'system':
+            print("System:")
+            print("-" * 40)
+            print(content)
+        elif role == 'user':
+            print("User: ", end="")
+            print(wrap_text(content))
+        elif role == 'assistant':
+            print("Assistant: ", end="")
+            print(wrap_text(content))
+        print()  # Add an extra newline for spacing
+
+def print_prompt_and_response(prompt, response):
+    print("Prompt: ")
+    print(wrap_text(prompt))
+    print("")
+    print("Response: ")
+    print(response)
+
+def print_messages_and_response(messages, response):
+    prompt = ChatPromptTemplate(messages=messages)
+    print_prompt_and_response(prompt.format(), response)
+
+def get_completion(prompt, temperature=0.0):
+    response = llm.invoke(prompt, temperature=temperature)
+    wrapped_response = wrap_text(response.content)
+    return wrapped_response
+
+def get_completion_messages(messages, temperature=0.0):
+    response=llm.invoke(messages, temperature=temperature)
+    wrapped_response = wrap_text(response.content)
+    return wrapped_response
+```

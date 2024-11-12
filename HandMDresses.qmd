@@ -1,0 +1,105 @@
+---
+title: "H&M Dresses"
+---
+
+# H&M Dresses Dataframe 
+
+First we take a look at a Dataframe that involves H & M Dresses. We use just 100 in this little sample Dataframe.
+
+```{python}
+import pandas as pd
+import requests
+from io import StringIO
+
+# Download the CSV
+url = "https://calvinw.github.io/semantic-search/hm-dresses-100.csv"
+response = requests.get(url)
+
+# Read into pandas DataFrame
+df = pd.read_csv(StringIO(response.text))
+
+def analyze_csv(df):
+    # URL of the CSV file
+    url = "https://calvinw.github.io/semantic-search/hm-dresses-100.csv"
+    # Basic dataset information
+    print("\nBasic Information:")
+    print(f"Number of rows: {len(df)}")
+    print(f"Number of columns: {len(df.columns)}")
+    
+    # Column information
+    print("\nColumn Details:")
+    for column in df.columns:
+        non_null = df[column].count()
+        dtype = df[column].dtype
+        unique = df[column].nunique()
+        print(f"\n{column}:")
+        print(f"- Data type: {dtype}")
+        print(f"- Non-null count: {non_null}")
+        print(f"- Unique values: {unique}")
+        print(f"- Sample value: {df[column].iloc[0]}")
+    
+    return df
+```
+
+# DataSet Information
+
+```{python}
+df.info()
+df.head()
+```
+What we will do is use the following fields and create a combined field.
+
+- prod_name: The product name.
+- product_type_name: The type of the product (e.g., dress, top).
+- product_group_name: The broader category that the product belongs to (e.g., Garment Full body).
+- graphical_appearance_name: The graphical appearance (e.g., Solid, Stripe).
+- colour_group_name: The color group (e.g., Dark Grey, Black).
+- detail_desc: The detailed description of the product.
+
+Lets take a look at just these fields for some of the data:
+
+```{python}
+from IPython.display import display, HTML
+
+# Select and rename columns
+columns_mapping = {
+    'prod_name': 'Product Name',
+    'product_type_name': 'Product Type',
+    'product_group_name': 'Product Group',
+    'graphical_appearance_name': 'Appearance',
+    'colour_group_name': 'Color Group',
+    'detail_desc': 'Description'
+}
+
+# Select only the columns we want and rename them
+selected_df = df[list(columns_mapping.keys())].rename(columns=columns_mapping)
+
+# Style the DataFrame for display
+styled_df = selected_df.style.set_properties(**{
+    'white-space': 'pre-wrap',
+    'text-align': 'left'
+}).set_table_styles([
+    {'selector': 'th', 'props': [
+        ('background-color', '#f4f4f4'),
+        ('color', '#333'),
+        ('font-weight', 'bold'),
+        ('text-align', 'left'),
+        ('padding', '8px')
+    ]},
+    {'selector': 'td', 'props': [
+        ('padding', '8px'),
+        ('border-bottom', '1px solid #ddd')
+    ]}
+])
+
+# Display the styled DataFrame
+display(HTML("<h3>H&M Products Catalog</h3>"))
+display(styled_df)
+
+# Print some summary statistics
+print(f"\nTotal number of products: {len(selected_df)}")
+print("\nProduct Types Distribution:")
+print(selected_df['Product Type'].value_counts())
+print("\nColor Groups Distribution:")
+print(selected_df['Color Group'].value_counts())
+```

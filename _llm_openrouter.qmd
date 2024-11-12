@@ -1,0 +1,42 @@
+```{python}
+#| eval: true
+#| echo: false 
+#| output: false
+from dotenv import load_dotenv
+load_dotenv()
+```
+### Put Your OPENROUTER_API_KEY here
+
+```{python}
+#| eval: false
+#| code-fold: true
+import os
+os.environ["OPENROUTER_API_KEY"] = "paste_your_api_key_here"
+```
+```{python}
+#| eval: false
+#| code-fold: true
+!pip3 install langchain langchain_openai
+```
+
+```{python}
+#| eval: true
+#| code-fold: true
+import os
+from langchain_openai import ChatOpenAI
+
+try:
+    model_name
+except NameError:
+    model_name="openai/gpt-4o-mini"
+
+print("Model Name:", model_name)
+print("Provider:", "OpenRouter AI")
+
+llm=ChatOpenAI(model_name=model_name,
+               openai_api_key=os.environ.get("OPENROUTER_API_KEY"),
+               openai_api_base="https://openrouter.ai/api/v1")
+
+```
+
+{{< include _llm_utils.qmd >}}
