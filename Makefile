@@ -2,6 +2,7 @@ SHELL:=/bin/bash
 
 SOURCES:= \
 SemanticSearch.qmd \
+Small-Similarity-Example.qmd \
 HandMDresses.qmd
 
 REGULAR_HTML_FILES = $(SOURCES:%.qmd=%.html)
