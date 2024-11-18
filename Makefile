@@ -5,6 +5,7 @@ SemanticSearch.qmd \
 Small-Similarity-Example.qmd \
 OppositesEmbeddings.qmd \
 PlotEmbeddings.qmd \
+MorePlotEmbeddings.qmd \
 CosineSimilarity.qmd \
 HandMDresses.qmd
 
