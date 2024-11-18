@@ -1,0 +1,155 @@
+---
+title: "Plotting Embeddings and Heatmaps"
+---
+
+## Plotting Embeddings and Heatmaps
+
+First, we'll import the necessary libraries and create functions to plot
+embeddings and heatmaps for some examples
+
+
+```{python}
+from sentence_transformers import SentenceTransformer
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+import seaborn as sns
+import numpy as np
+
+def plot_embedding(phrases, num_clusters):
+    # Load the model
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+
+    # Generate embeddings
+    embeddings = model.encode(phrases)
+
+    # Reduce to 2 dimensions using PCA
+    pca = PCA(n_components=2)
+    embeddings_2d = pca.fit_transform(embeddings)
+
+    # Perform clustering using KMeans
+    kmeans = KMeans(n_clusters=num_clusters, random_state=42)
+    cluster_labels = kmeans.fit_predict(embeddings)
+
+    # Plot the 2D embeddings with clusters
+    plt.figure(figsize=(10, 8))
+    colors = ['red', 'blue', 'green', 'purple']
+    for i, (x, y) in enumerate(embeddings_2d):
+        plt.scatter(x, y, color=colors[cluster_labels[i]], label=f"Cluster {cluster_labels[i]}" if f"Cluster {cluster_labels[i]}" not in plt.gca().get_legend_handles_labels()[1] else "")
+        plt.text(x + 0.02, y, phrases[i], fontsize=9)
+
+    plt.title("2D Visualization of Sentence Embeddings with Clustering")
+    plt.xlabel("PCA Dimension 1")
+    plt.ylabel("PCA Dimension 2")
+    plt.legend(loc='best', fontsize=8)
+    plt.grid(True)
+    plt.axis('equal')
+    plt.show()
+
+    return embeddings, cluster_labels
+
+def plot_heatmap(phrases, embeddings, cluster_labels):
+    # Calculate cosine similarity matrix
+    similarity_matrix = np.inner(embeddings, embeddings)
+
+    # Create a DataFrame for the heatmap
+    import pandas as pd
+    df = pd.DataFrame(similarity_matrix, index=phrases, columns=phrases)
+
+    # Sort the DataFrame by cluster labels
+    sorted_indices = np.argsort(cluster_labels)
+    df = df.iloc[sorted_indices, sorted_indices]
+
+    # Plot the heatmap
+    plt.figure(figsize=(12, 10))
+    sns.heatmap(df, cmap='YlOrRd', annot=False)
+    plt.title("Cosine Similarity Heatmap (Sorted by Clusters)")
+    plt.tight_layout()
+    plt.show()
+
+```
+
+Next, we'll apply these functions to our examples.
+
+## I Like To Be In My House Example
+
+### I like my House Embeddings 
+
+```{python}
+# Simple Phrases
+phrases = [
+    "I like to be in my house", 
+    "I enjoy staying home", 
+    "I like spending time where I live.", 
+    "I love sleeping all day.",
+    "The isotope 238u decays to 206pb"
+]
+
+embeddings, cluster_labels = plot_embedding(phrases, 2)
+```
+
+### I like my House HeatMap 
+
+```{python}
+plot_heatmap(phrases, embeddings, cluster_labels)
+```
+
+## Shoes and Dresses 
+
+### Shoes and Dresses Items Embeddings
+
+```{python}
+phrases = [
+    "Cocktail sequin dress",
+    "Running sneakers",
+    "Floral sundress",
+    "Maxi wrap dress",
+    "Strappy sandals",
+    "Little black dress",
+    "Leather ankle boots"
+]
+
+embeddings, cluster_labels = plot_embedding(phrases, 2)
+```
+
+### Shoes and Dresses 
+
+```{python}
+plot_heatmap(phrases, embeddings, cluster_labels)
+```
+
+## Fashion and Clothing Items 
+
+In this example we pick a few more examples to include.
+
+### Fashion and Clothing Items Embeddings
+
+```{python}
+phrases = [
+    "Diamond pendant necklace",
+    "Gold charm bracelet",
+    "Pearl drop earrings",
+    "Vintage brooch pin",
+    "Silver wrist watch",
+    "Evening gown",
+    "Summer midi dress",
+    "Wrap jersey dress",
+    "Cocktail party dress",
+    "Floral maxi dress",
+    "Ballet flats",
+    "High heel pumps",
+    "Leather boots",
+    "Platform sneakers",
+    "Strappy sandals"
+]
+
+
+embeddings, cluster_labels = plot_embedding(phrases, 3)
+```
+
+### Fashion and Clothing Items Heatmap 
+
+```{python}
+plot_heatmap(phrases, embeddings, cluster_labels)
+```
+

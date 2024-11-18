@@ -1,18 +1,14 @@
+
 ---
 title: "Small Similarity Example"
 ---
 
-## Similarities Between Sentences  
 
 We will look at the similarities between 3 sentences:
 
 - "I like to be in my house", 
 - "I enjoy staying home", 
 - "The isotope 238u decays to 206pb"
-
-Clearly the first two sentences are very similar, and the last one is very
-different from the first two. We should see that reflected in the similarities
-that are computed from the embeddings.
 
 First we compute the similarities between them 
 
@@ -25,9 +21,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import textwrap
 
-# Set NumPy print options to display numbers in decimal notation
-np.set_printoptions(suppress=True, precision=6)
-
 # Define our texts
 texts = ["I like to be in my house", 
          "I enjoy staying home", 
@@ -35,6 +28,7 @@ texts = ["I like to be in my house",
 
 # Check if GPU is available and use it if possible
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
+print(f"Using {device} for inference.")
 
 # Load the model
 model = SentenceTransformer('all-MiniLM-L6-v2', device=device)
@@ -44,46 +38,37 @@ embeddings = model.encode(texts)
 
 # Compute pairwise similarities
 similarities = cosine_similarity(embeddings)
+print(similarities)
+print(embeddings)
 ```
 
-### How many dimensions in our embedding? 
+## The embedding for 'I like to be in my house'
 
 ```{python}
-print("Number of dimensions for sentence 1")
-print(len(embeddings[0]))
-print("Number of dimensions for sentence 2")
-print(len(embeddings[1]))
-print("Number of dimensions for sentence 3")
-print(len(embeddings[2]))
+print("This is the embedding for 'I like to be in my house'")
+print(embeddings[0])
 ```
 
-### The embedding for 'I like to be in my house'
+## The embedding for 'I enjoy staying home'
 
 ```{python}
-print("This is the embedding for 'I like to be in my house' (first 10 out of 384 entries)")
-print(embeddings[0][:10])
+print("This is the embedding for 'I enjoy staying home'")
+print(embeddings[1])
 ```
 
-### The embedding for 'I enjoy staying home'
+## The embedding for 'The isotope 238 decays to 206pb'
 
 ```{python}
-print("This is the embedding for 'I enjoy staying home' (first 10 out of 384 entries)")
-print(embeddings[1][:10])
+print("This is the embedding for 'The isotope 238 decays to 206pb'")
+print(embeddings[2])
 ```
 
-### The embedding for 'The isotope 238 decays to 206pb'
-
-```{python}
-print("This is the embedding for 'The isotope 238 decays to 206pb' (first 10 out of 384 entries)")
-print(embeddings[2][:10])
-```
-
-### Now we create a heatmap that shows the similarities
+## Now we create a heatmap that shows the similairities
 
 ```{python}
 # Create a heatmap
 plt.figure(figsize=(8, 8))
-ax = sns.heatmap(similarities, annot=True, cmap='Blues', vmin=0, vmax=1, square=True, fmt='.4f')
+ax = sns.heatmap(similarities, annot=True, cmap='Blues', vmin=0, vmax=1, square=True)
 
 # Remove x-axis ticks
 ax.set_xticks([])

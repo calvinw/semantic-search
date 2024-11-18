@@ -1,0 +1,55 @@
+# Semantic Similarity in Fashion
+
+```{python}
+import torch
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
+
+# Function to analyze and visualize any set of sentences
+def analyze_sentences(sentences):
+    # Check if GPU is available and use it if possible
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    print(f"Using {device} for inference.")
+
+    # Load the model
+    model = SentenceTransformer('all-MiniLM-L6-v2', device=device)
+
+    # Generate embeddings
+    embeddings = model.encode(sentences)
+    
+    # Compute pairwise similarities
+    similarities = cosine_similarity(embeddings)
+    
+    # Print results
+    print("\nPairwise Similarities:")
+    for i in range(len(sentences)):
+        for j in range(i+1, len(sentences)):
+            print(f"\nSimilarity between:\n'{sentences[i]}' and\n'{sentences[j]}':\n{similarities[i][j]:.4f}")
+    
+    # Visualize similarity matrix
+    plt.figure(figsize=(5, 4))
+    plt.imshow(similarities, cmap='viridis')
+    plt.colorbar()
+    plt.xticks(range(len(sentences)), range(1, len(sentences) + 1))
+    plt.yticks(range(len(sentences)), range(1, len(sentences) + 1))
+    plt.title("Similarity Matrix")
+    for i in range(len(sentences)):
+        for j in range(len(sentences)):
+            plt.text(j, i, f"{similarities[i, j]:.2f}", ha="center", va="center", color="w")
+    plt.tight_layout()
+    plt.show()
+    
+# Example usage with fashion-related sentences
+fashion_sentences = [
+"The runway model showcased a stunning sequined gown.",
+"The fashion show featured an elegant evening dress with intricate beadwork.",
+"Sustainable sneakers made from recycled materials are gaining popularity."
+]
+
+analyze_sentences(fashion_sentences)
+
+#analyze_sentences(new_sentences)
+```

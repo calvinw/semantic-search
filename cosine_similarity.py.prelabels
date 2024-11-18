@@ -1,0 +1,82 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define our product vectors
+product_a = np.array([8, 2])  # High-end leather bag
+product_b = np.array([7, 3])  # Designer shoes
+product_c = np.array([2, 9])  # Cozy slippers
+
+# Create the plot
+plt.figure(figsize=(12, 12))
+
+# Plot vectors as arrows from origin
+plt.quiver(0, 0, product_a[0], product_a[1], angles='xy', scale_units='xy', scale=1, color='blue', label='Product A')
+plt.quiver(0, 0, product_b[0], product_b[1], angles='xy', scale_units='xy', scale=1, color='red', label='Product B')
+plt.quiver(0, 0, product_c[0], product_c[1], angles='xy', scale_units='xy', scale=1, color='green', label='Product C')
+
+# Add labels at the end of each vector
+plt.annotate('Leather Bag\n(8, 2)', 
+            xy=(product_a[0], product_a[1]), 
+            xytext=(10, 0), 
+            textcoords='offset points', 
+            ha='left',
+            bbox=dict(boxstyle='round,pad=0.5', fc='white', ec='blue', alpha=0.8))
+
+plt.annotate('Designer Shoes\n(7, 3)', 
+            xy=(product_b[0], product_b[1]), 
+            xytext=(10, 0), 
+            textcoords='offset points', 
+            ha='left',
+            bbox=dict(boxstyle='round,pad=0.5', fc='white', ec='red', alpha=0.8))
+
+plt.annotate('Cozy Slippers\n(2, 9)', 
+            xy=(product_c[0], product_c[1]), 
+            xytext=(-20, 10), 
+            textcoords='offset points', 
+            ha='right',
+            bbox=dict(boxstyle='round,pad=0.5', fc='white', ec='green', alpha=0.8))
+
+# Add some visual improvements
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.axhline(y=0, color='k', linestyle='-', alpha=0.3)
+plt.axvline(x=0, color='k', linestyle='-', alpha=0.3)
+
+# Set limits and labels
+plt.xlim(-1, 11)
+plt.ylim(-1, 11)
+plt.xlabel('Luxury Score', fontsize=12)
+plt.ylabel('Comfort Score', fontsize=12)
+plt.title('Product Vectors: Luxury vs Comfort Scores', fontsize=14)
+
+# Add legend
+plt.legend()
+
+# Add angles
+def get_angle(v1, v2):
+    return np.degrees(np.arccos(np.dot(v1, v2)/(np.linalg.norm(v1)*np.linalg.norm(v2))))
+
+angle_ab = get_angle(product_a, product_b)
+angle_ac = get_angle(product_a, product_c)
+
+# Add angle annotations
+plt.annotate(f'θ = {angle_ab:.1f}°', 
+            xy=(4, 1.5),
+            bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5))
+
+plt.annotate(f'θ = {angle_ac:.1f}°', 
+            xy=(5, 5),
+            bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5))
+
+# Show the plot
+plt.grid(True)
+plt.show()
+
+# Print similarities
+cos_sim_ab = np.dot(product_a, product_b)/(np.linalg.norm(product_a)*np.linalg.norm(product_b))
+cos_sim_ac = np.dot(product_a, product_c)/(np.linalg.norm(product_a)*np.linalg.norm(product_c))
+cos_sim_bc = np.dot(product_b, product_c)/(np.linalg.norm(product_b)*np.linalg.norm(product_c))
+
+print(f"\nCosine Similarities:")
+print(f"Leather Bag and Designer Shoes: {cos_sim_ab:.3f}")
+print(f"Leather Bag and Cozy Slippers: {cos_sim_ac:.3f}")
+print(f"Designer Shoes and Cozy Slippers: {cos_sim_bc:.3f}")

@@ -3,6 +3,9 @@ SHELL:=/bin/bash
 SOURCES:= \
 SemanticSearch.qmd \
 Small-Similarity-Example.qmd \
+OppositesEmbeddings.qmd \
+PlotEmbeddings.qmd \
+CosineSimilarity.qmd \
 HandMDresses.qmd
 
 REGULAR_HTML_FILES = $(SOURCES:%.qmd=%.html)

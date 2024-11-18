@@ -1,0 +1,39 @@
+from sentence_transformers import SentenceTransformer
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+# Load the model
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+# Sample phrases
+phrases = [
+    "Red leather jacket.",
+    "Blue denim jeans.",
+    "Black running shoes.",
+    "White cotton shirt.",
+    "Green silk scarf.",
+    "Comfortable footwear.",
+    "Stylish outerwear.",
+    "Elegant accessories."
+]
+
+# Generate embeddings
+embeddings = model.encode(phrases)
+
+# Reduce to 2 dimensions using PCA
+pca = PCA(n_components=2)
+embeddings_2d = pca.fit_transform(embeddings)
+
+# Plot the 2D embeddings
+plt.figure(figsize=(8, 6))
+for i, (x, y) in enumerate(embeddings_2d):
+    plt.scatter(x, y, label=phrases[i])
+    plt.text(x + 0.02, y + 0.02, phrases[i], fontsize=9)
+
+plt.title("2D Visualization of Sentence Embeddings")
+plt.xlabel("PCA Dimension 1")
+plt.ylabel("PCA Dimension 2")
+plt.legend(loc='best', fontsize=8)
+plt.grid(True)
+plt.show()
+

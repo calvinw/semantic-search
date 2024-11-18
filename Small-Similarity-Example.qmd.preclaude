@@ -1,0 +1,43 @@
+
+
+# Semantic Similarity
+
+
+```{python}
+
+import torch
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+
+# Define our texts
+texts = ["I like to be in my house", 
+         "I enjoy staying home", 
+         "the isotope 238u decays to 206pb"]
+
+# Check if GPU is available and use it if possible
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+print(f"Using {device} for inference.")
+
+# Load the model
+model = SentenceTransformer('all-MiniLM-L6-v2', device=device)
+
+# Generate embeddings
+embeddings = model.encode(texts)
+
+# Compute pairwise similarities
+similarities = cosine_similarity(embeddings)
+
+# Print results in a readable format
+print("\nPairwise Similarities:")
+print("\nSentence pairs:")
+for i in range(len(texts)):
+    for j in range(i+1, len(texts)):
+        print(f"\nSimilarity between:\n'{texts[i]}' and\n'{texts[j]}':\n{similarities[i][j]:.4f}")
+
+# Print full similarity matrix
+print("\nFull similarity matrix:")
+print(np.round(similarities, 4))
+```
+
+![](https://calvinw.github.io/semantic-search/similarity-visualize.webp)
