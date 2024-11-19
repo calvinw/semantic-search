@@ -3,3 +3,4 @@ matplotlib
 sentence-transformers
 numpy
 seaborn
+streamlit
