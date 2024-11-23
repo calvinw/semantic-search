@@ -1,110 +1,272 @@
-Query: An eye-catching piece of outerwear designed to stand out in any situation.
-  Title: Red Leather Jacket
-  Description: A bold red leather jacket perfect for making a statement.
-  Similarity Score: 0.4389
-  
-  Title: Blue Denim Jeans
-  Description: Classic blue denim jeans that are comfortable and stylish.
-  Similarity Score: 0.2714
-  
-  Title: Black Running Shoes
-  Description: Lightweight black running shoes designed for all-day comfort.
-  Similarity Score: 0.2718
-  
-  Title: White Cotton Shirt
-  Description: A crisp white cotton shirt ideal for both casual and formal wear.
-  Similarity Score: 0.2916
-  
-  Title: Green Silk Scarf
-  Description: Elegant green silk scarf to add a touch of sophistication to any outfit.
-  Similarity Score: 0.4542
-  
---------------------------------------------------
-Query: Timeless casual bottoms that blend comfort with practicality for everyday wear.
-  Title: Red Leather Jacket
-  Description: A bold red leather jacket perfect for making a statement.
-  Similarity Score: 0.3024
-  
-  Title: Blue Denim Jeans
-  Description: Classic blue denim jeans that are comfortable and stylish.
-  Similarity Score: 0.5339
-  
-  Title: Black Running Shoes
-  Description: Lightweight black running shoes designed for all-day comfort.
-  Similarity Score: 0.4064
-  
-  Title: White Cotton Shirt
-  Description: A crisp white cotton shirt ideal for both casual and formal wear.
-  Similarity Score: 0.4874
-  
-  Title: Green Silk Scarf
-  Description: Elegant green silk scarf to add a touch of sophistication to any outfit.
-  Similarity Score: 0.4023
-  
---------------------------------------------------
-Query: Durable footwear optimized for all-day activity and a sporty lifestyle.
-  Title: Red Leather Jacket
-  Description: A bold red leather jacket perfect for making a statement.
-  Similarity Score: 0.2333
-  
-  Title: Blue Denim Jeans
-  Description: Classic blue denim jeans that are comfortable and stylish.
-  Similarity Score: 0.3096
-  
-  Title: Black Running Shoes
-  Description: Lightweight black running shoes designed for all-day comfort.
-  Similarity Score: 0.5549
-  
-  Title: White Cotton Shirt
-  Description: A crisp white cotton shirt ideal for both casual and formal wear.
-  Similarity Score: 0.2267
-  
-  Title: Green Silk Scarf
-  Description: Elegant green silk scarf to add a touch of sophistication to any outfit.
-  Similarity Score: 0.2633
-  
---------------------------------------------------
-Query: A versatile garment ideal for both relaxed outings and more polished events.
-  Title: Red Leather Jacket
-  Description: A bold red leather jacket perfect for making a statement.
-  Similarity Score: 0.4181
-  
-  Title: Blue Denim Jeans
-  Description: Classic blue denim jeans that are comfortable and stylish.
-  Similarity Score: 0.3519
-  
-  Title: Black Running Shoes
-  Description: Lightweight black running shoes designed for all-day comfort.
-  Similarity Score: 0.2498
-  
-  Title: White Cotton Shirt
-  Description: A crisp white cotton shirt ideal for both casual and formal wear.
-  Similarity Score: 0.4888
-  
-  Title: Green Silk Scarf
-  Description: Elegant green silk scarf to add a touch of sophistication to any outfit.
-  Similarity Score: 0.5770
-  
---------------------------------------------------
-Query: A graceful accessory that adds a refined touch to an ensemble for special occasions.
-  Title: Red Leather Jacket
-  Description: A bold red leather jacket perfect for making a statement.
-  Similarity Score: 0.3466
-  
-  Title: Blue Denim Jeans
-  Description: Classic blue denim jeans that are comfortable and stylish.
-  Similarity Score: 0.2503
-  
-  Title: Black Running Shoes
-  Description: Lightweight black running shoes designed for all-day comfort.
-  Similarity Score: 0.1743
-  
-  Title: White Cotton Shirt
-  Description: A crisp white cotton shirt ideal for both casual and formal wear.
-  Similarity Score: 0.2992
-  
-  Title: Green Silk Scarf
-  Description: Elegant green silk scarf to add a touch of sophistication to any outfit.
-  Similarity Score: 0.5443
-  
---------------------------------------------------
+Search Texts for All Items:
+
+D000001: Sequin Ballgown in Gold (Evening) Stunning floor-length ballgown with all-over sequin embellishment. Features a sweetheart neckline, corset back, and full tulle underskirt. Built-in boning provides structure. Perfect for galas and formal events.
+
+D000002: Velvet Mermaid Dress in Burgundy (Evening) Luxurious velvet mermaid dress with deep V-neckline and open back. Fitted through hips with dramatic flare. Features crystal beading at waist and shoulder straps.
+
+D000003: Satin Evening Gown in Emerald (Evening) Classic satin evening gown with cowl neck and elegant draped back. Side slit and sweep train add drama. Internal structure provides support.
+
+D000004: Beaded Column Dress in Silver (Evening) Sleek column dress with intricate beading throughout. High neck, cap sleeves, and side slit. Vintage-inspired art deco pattern.
+
+D000005: Chiffon Cape Dress in Navy (Evening) Sophisticated dress with attached flowing cape. Floor length with gentle gathering. Empire waist and subtle beading.
+
+D000006: Ruched Mini Dress in Black (Cocktail) Form-fitting mini dress with strategic ruching. Asymmetrical neckline and single long sleeve. Made from luxury stretch fabric.
+
+D000007: Pleated Party Dress in Red (Cocktail) Playful party dress with knife pleats throughout. Fit and flare silhouette with bow detail at waist. Hidden pockets.
+
+D000008: Metallic Wrap Dress in Rose Gold (Cocktail) Shimmering metallic wrap dress perfect for cocktail parties. Adjustable waist tie and flutter sleeves. Above-knee length.
+
+D000009: Lace Cocktail Dress in Wine (Cocktail) Classic cocktail dress in delicate lace. Scalloped V-neck and hem, cap sleeves. Lined in soft jersey.
+
+D000010: Ruffled Mini Dress in Electric Blue (Cocktail) Fun and flirty mini dress with cascading ruffles. One-shoulder design with side zip. Perfect for parties.
+
+D000011: Tailored Sheath Dress in Charcoal (Work) Professional sheath dress in wool blend suiting fabric. Subtle dart detailing and back vent. Perfect for business meetings.
+
+D000012: Button-Front Shirt Dress in White (Work) Classic shirt dress with button-front closure. Belt defines waist. Made from wrinkle-resistant cotton blend.
+
+D000013: Structured A-Line Dress in Navy (Work) Polished A-line dress with princess seams. Three-quarter sleeves and knee length. Hidden back zip.
+
+D000014: Ponte Knit Dress in Black (Work) Comfortable yet professional dress in stable ponte knit. Slight stretch with clean lines. Machine washable.
+
+D000015: Blazer Dress in Grey (Work) Sophisticated blazer dress with peaked lapels. Double-breasted button closure. Perfect for power meetings.
+
+D000016: T-Shirt Dress in Heather Grey (Casual) Easy-wearing T-shirt dress in soft jersey. Side slits and chest pocket. Perfect for weekend errands.
+
+D000017: Denim Shirt Dress in Light Wash (Casual) Casual denim dress with snap closures. Roll-tab sleeves and self-belt. Western-inspired details.
+
+D000018: Knit Sweater Dress in Oatmeal (Casual) Cozy sweater dress in chunky cotton knit. Ribbed trim and kangaroo pocket. Perfect for cool days.
+
+D000019: Jersey Maxi Dress in Black (Casual) Simple maxi dress in soft jersey. Side slits and racerback. Easy pull-on style.
+
+D000020: Hoodie Dress in Sage (Casual) Sporty hoodie dress in French terry. Kangaroo pocket and drawstring hood. Perfect for athleisure.
+
+D000021: Linen Sundress in White (Summer) Breezy linen sundress with button front. Adjustable straps and patch pockets. Perfect for hot days.
+
+D000022: Cotton Wrap Dress in Yellow Floral (Summer) Fresh floral wrap dress in lightweight cotton. Flutter sleeves and ruffle hem. True wrap style.
+
+D000023: Beach Kaftan in Turquoise (Summer) Flowing beach kaftan in semi-sheer fabric. Embroidered neckline and side slits. Perfect as coverup.
+
+D000024: Halter Maxi Dress in Coral (Summer) Vibrant maxi dress with halter neckline. Smocked bodice and tiered skirt. Perfect for vacations.
+
+D000025: Off-Shoulder Dress in Blue Stripe (Summer) Striped off-shoulder dress in cotton poplin. Elastic neckline and flared skirt. Summer essential.
+
+D000026: Bridesmaid Dress in Dusty Rose (Special Occasion) Elegant bridesmaid dress in chiffon. Convertible straps can be styled multiple ways. Floor length.
+
+D000027: Mother of Bride Dress in Champagne (Special Occasion) Sophisticated dress with matching jacket. Beaded trim and three-quarter sleeves. Tea length.
+
+D000028: Graduation Dress in White (Special Occasion) Classic fit and flare dress perfect for graduation. Subtle texture and cap sleeves. Above knee length.
+
+D000029: Rehearsal Dinner Dress in Ivory (Special Occasion) Sweet midi dress in textured fabric. Bow back detail and pockets. Perfect for wedding events.
+
+D000030: Garden Party Dress in Floral Print (Special Occasion) Romantic dress in watercolor floral print. Cap sleeves and full skirt. Perfect for outdoor events.
+
+D000031: Cutout Midi Dress in Hot Pink (Trendy) Fashion-forward dress with strategic cutouts. High neck and midi length. Made from stretch crepe.
+
+D000032: Oversized Shirt Dress in White (Trendy) Trendy oversized shirt dress with high slits. Drop shoulders and oversized cuffs. Modern minimalist style.
+
+D000033: Slip Dress in Black (Trendy) Minimal slip dress in silky fabric. Thin straps and straight cut. Layer over t-shirt for trend look.
+
+D000034: Puff Sleeve Mini in Green (Trendy) Statement mini dress with dramatic puff sleeves. Square neck and fitted bodice. Very Instagram-worthy.
+
+D000035: Mesh Overlay Dress in Neon Yellow (Trendy) Edgy dress with mesh overlay. Long sleeves and mini length. Perfect for festival season.
+
+D000036: Organic Cotton Dress in Natural (Sustainable) Eco-friendly dress in organic cotton. Simple shift style with patch pockets. GOTS certified.
+
+D000037: Recycled Fiber Dress in Ocean Blue (Sustainable) Sustainable dress made from recycled ocean plastic. A-line style with cap sleeves. Reduces waste.
+
+D000038: Hemp Maxi Dress in Earth Brown (Sustainable) Environmental maxi dress in hemp blend. Button front and tie waist. Biodegradable materials.
+
+D000039: Tencel Shirt Dress in Sage Green (Sustainable) Eco-conscious shirt dress in Tencel lyocell. Classic style with self-belt. Sustainable production.
+
+D000040: Deadstock Fabric Dress in Mixed Print (Sustainable) Zero-waste dress made from deadstock fabric. One-of-a-kind print. Reduces fashion waste.
+
+D000041: Tea Party Dress in Pastel Floral (Occasion) Feminine dress perfect for afternoon tea. Lace trim and peter pan collar. Vintage-inspired style.
+
+D000042: Gallery Opening Dress in Abstract Print (Occasion) Artistic dress in bold abstract print. Asymmetric hem and draping. Makes a statement.
+
+D000043: Resort Dinner Dress in Tropical Print (Occasion) Resort-ready dress in exotic print. One-shoulder style and side slit. Perfect for vacation dinners.
+
+D000044: Theater Dress in Deep Purple (Occasion) Dramatic midi dress for evening theater. Velvet trim and cape back. Makes an entrance.
+
+D000045: Cruise Formal Dress in Metallic Blue (Occasion) Elegant dress for cruise formal night. Grecian draping and embellished shoulder. Floor length.
+
+D000046: Sweater Dress in Burgundy (Winter) Cozy sweater dress in merino wool blend. Turtleneck and long sleeves. Perfect for cold weather.
+
+D000047: Velvet Midi Dress in Forest Green (Winter) Rich velvet midi dress for winter events. Long sleeves and subtle stretch. Festive and warm.
+
+D000048: Knit Maxi Dress in Charcoal (Winter) Warm maxi dress in heavy jersey knit. Mock neck and side slits. Layer over boots.
+
+D000049: Wool Shift Dress in Camel (Winter) Classic shift dress in Italian wool. Three-quarter sleeves and patch pockets. Perfect for winter work.
+
+D000050: Fleece Sweater Dress in Grey Marl (Winter) Ultra-warm dress in plush fleece. Cowl neck and kangaroo pocket. Cozy winter essential.
+
+Semantic Search Examples:
+
+
+Search Query: 'something formal for a wedding'
+--------------------------------------------------------------------------------
+
+Match 1 (Similarity: 0.548):
+Product: Rehearsal Dinner Dress (Ivory)
+Category: Special Occasion
+Article ID: D000029
+Description: Sweet midi dress in textured fabric. Bow back detail and pockets. Perfect for wedding events.
+
+Match 2 (Similarity: 0.501):
+Product: Cruise Formal Dress (Metallic Blue)
+Category: Occasion
+Article ID: D000045
+Description: Elegant dress for cruise formal night. Grecian draping and embellished shoulder. Floor length.
+
+Match 3 (Similarity: 0.486):
+Product: Mother of Bride Dress (Champagne)
+Category: Special Occasion
+Article ID: D000027
+Description: Sophisticated dress with matching jacket. Beaded trim and three-quarter sleeves. Tea length.
+
+Search Query: 'comfortable summer dress with pockets'
+--------------------------------------------------------------------------------
+
+Match 1 (Similarity: 0.585):
+Product: Linen Sundress (White)
+Category: Summer
+Article ID: D000021
+Description: Breezy linen sundress with button front. Adjustable straps and patch pockets. Perfect for hot days.
+
+Match 2 (Similarity: 0.562):
+Product: Off-Shoulder Dress (Blue Stripe)
+Category: Summer
+Article ID: D000025
+Description: Striped off-shoulder dress in cotton poplin. Elastic neckline and flared skirt. Summer essential.
+
+Match 3 (Similarity: 0.540):
+Product: Structured A-Line Dress (Navy)
+Category: Work
+Article ID: D000013
+Description: Polished A-line dress with princess seams. Three-quarter sleeves and knee length. Hidden back zip.
+
+Search Query: 'professional dress for business meetings'
+--------------------------------------------------------------------------------
+
+Match 1 (Similarity: 0.565):
+Product: Blazer Dress (Grey)
+Category: Work
+Article ID: D000015
+Description: Sophisticated blazer dress with peaked lapels. Double-breasted button closure. Perfect for power meetings.
+
+Match 2 (Similarity: 0.546):
+Product: Structured A-Line Dress (Navy)
+Category: Work
+Article ID: D000013
+Description: Polished A-line dress with princess seams. Three-quarter sleeves and knee length. Hidden back zip.
+
+Match 3 (Similarity: 0.525):
+Product: Tailored Sheath Dress (Charcoal)
+Category: Work
+Article ID: D000011
+Description: Professional sheath dress in wool blend suiting fabric. Subtle dart detailing and back vent. Perfect for business meetings.
+
+Search Query: 'sparkly party dress'
+--------------------------------------------------------------------------------
+
+Match 1 (Similarity: 0.655):
+Product: Pleated Party Dress (Red)
+Category: Cocktail
+Article ID: D000007
+Description: Playful party dress with knife pleats throughout. Fit and flare silhouette with bow detail at waist. Hidden pockets.
+
+Match 2 (Similarity: 0.653):
+Product: Ruffled Mini Dress (Electric Blue)
+Category: Cocktail
+Article ID: D000010
+Description: Fun and flirty mini dress with cascading ruffles. One-shoulder design with side zip. Perfect for parties.
+
+Match 3 (Similarity: 0.620):
+Product: Mesh Overlay Dress (Neon Yellow)
+Category: Trendy
+Article ID: D000035
+Description: Edgy dress with mesh overlay. Long sleeves and mini length. Perfect for festival season.
+
+Search Query: 'sustainable eco-friendly dress'
+--------------------------------------------------------------------------------
+
+Match 1 (Similarity: 0.697):
+Product: Recycled Fiber Dress (Ocean Blue)
+Category: Sustainable
+Article ID: D000037
+Description: Sustainable dress made from recycled ocean plastic. A-line style with cap sleeves. Reduces waste.
+
+Match 2 (Similarity: 0.635):
+Product: Hemp Maxi Dress (Earth Brown)
+Category: Sustainable
+Article ID: D000038
+Description: Environmental maxi dress in hemp blend. Button front and tie waist. Biodegradable materials.
+
+Match 3 (Similarity: 0.630):
+Product: Deadstock Fabric Dress (Mixed Print)
+Category: Sustainable
+Article ID: D000040
+Description: Zero-waste dress made from deadstock fabric. One-of-a-kind print. Reduces fashion waste.
+
+Search Query: 'black dress that's wrinkle free for travel'
+--------------------------------------------------------------------------------
+
+Match 1 (Similarity: 0.605):
+Product: Ponte Knit Dress (Black)
+Category: Work
+Article ID: D000014
+Description: Comfortable yet professional dress in stable ponte knit. Slight stretch with clean lines. Machine washable.
+
+Match 2 (Similarity: 0.563):
+Product: Slip Dress (Black)
+Category: Trendy
+Article ID: D000033
+Description: Minimal slip dress in silky fabric. Thin straps and straight cut. Layer over t-shirt for trend look.
+
+Match 3 (Similarity: 0.540):
+Product: Ruched Mini Dress (Black)
+Category: Cocktail
+Article ID: D000006
+Description: Form-fitting mini dress with strategic ruching. Asymmetrical neckline and single long sleeve. Made from luxury stretch fabric.
+
+Search Query: 'elegant silk evening wear'
+--------------------------------------------------------------------------------
+
+Match 1 (Similarity: 0.631):
+Product: Satin Evening Gown (Emerald)
+Category: Evening
+Article ID: D000003
+Description: Classic satin evening gown with cowl neck and elegant draped back. Side slit and sweep train add drama. Internal structure provides support.
+
+Match 2 (Similarity: 0.553):
+Product: Cruise Formal Dress (Metallic Blue)
+Category: Occasion
+Article ID: D000045
+Description: Elegant dress for cruise formal night. Grecian draping and embellished shoulder. Floor length.
+
+Match 3 (Similarity: 0.531):
+Product: Ponte Knit Dress (Black)
+Category: Work
+Article ID: D000014
+Description: Comfortable yet professional dress in stable ponte knit. Slight stretch with clean lines. Machine washable.
+
+Search Query: 'warm dress for winter'
+--------------------------------------------------------------------------------
+
+Match 1 (Similarity: 0.685):
+Product: Fleece Sweater Dress (Grey Marl)
+Category: Winter
+Article ID: D000050
+Description: Ultra-warm dress in plush fleece. Cowl neck and kangaroo pocket. Cozy winter essential.
+
+Match 2 (Similarity: 0.642):
+Product: Knit Maxi Dress (Charcoal)
+Category: Winter
+Article ID: D000048
+Description: Warm maxi dress in heavy jersey knit. Mock neck and side slits. Layer over boots.
+
+Match 3 (Similarity: 0.625):
+Product: Sweater Dress (Burgundy)
+Category: Winter
+Article ID: D000046
+Description: Cozy sweater dress in merino wool blend. Turtleneck and long sleeves. Perfect for cold weather.
