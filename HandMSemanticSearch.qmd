@@ -127,6 +127,9 @@ class ProductSearcher:
 
     def get_product_name(self, idx):
         return self.product_names[idx]
+
+    def get_embedding_string(self, idx):
+        return self.embedding_strings[idx]
     
     def get_article_image(self, article_id: str) -> Image.Image:
         """Load image for a given article ID."""
@@ -209,20 +212,25 @@ searcher = ProductSearcher()
 ```
 
 ```{python}
-searcher.print_search_results("Socks for holiday")
-#hits=searcher.search("Socks for holiday", 3)
+#searcher.print_search_results("Socks for holiday")
 
-#idx_first = hits[0][0]
-#idx_second = hits[1][0]
-#idx_third = hits[2][0]
+hits=searcher.search("Socks for holiday", 3)
+
+idx_first = hits[0][0]
+idx_second = hits[1][0]
+idx_third = hits[2][0]
 
 #similarity_first = hits[0][1]
 #similarity_second = hits[1][1]
 #similarity_third = hits[2][1]
 
-#print(searcher.get_product_name(idx_first))
-#print(searcher.get_product_name(idx_second))
-#print(searcher.get_product_name(idx_third))
+print(searcher.get_product_name(idx_first))
+print(searcher.get_product_name(idx_second))
+print(searcher.get_product_name(idx_third))
+
+print(searcher.get_embedding_string(idx_first))
+print(searcher.get_embedding_string(idx_second))
+print(searcher.get_embedding_string(idx_third))
 
 #searcher.print_search_results("Socks for holiday")
 ```

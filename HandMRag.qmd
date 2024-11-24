@@ -1,0 +1,94 @@
+---
+title: "Rag for H and M"
+format:
+  html:
+    page-layout: full
+---
+
+```{python}
+#| eval: true
+#| echo: false 
+#| output: false
+from dotenv import load_dotenv
+load_dotenv()
+```
+
+```{python}
+import numpy as np
+import pandas as pd 
+from sentence_transformers import SentenceTransformer
+import time
+from io import StringIO
+from io import BytesIO
+from typing import List, Tuple
+import requests
+```
+
+```{python}
+class ProductSearcher:
+    def __init__(self, embeddings_url: str = "https://github.com/calvinw/semantic-search/raw/refs/heads/main/product_embeddings.npz"):
+        """Initialize the searcher with embeddings from GitHub URL."""
+        print("Downloading embeddings file from GitHub...")
+        try:
+            response = requests.get(embeddings_url)
+            response.raise_for_status()
+            
+            # Load the embeddings from the downloaded content
+            print("Loading embeddings and model...")
+            self.data = np.load(BytesIO(response.content), allow_pickle=True)
+            self.embeddings = self.data['embeddings']
+            self.product_names = self.data['product_names']
+            self.embedding_strings = self.data['embedding_strings']
+            self.product_codes = self.data['product_codes']
+            self.article_ids_str = self.data['article_ids_str']
+            
+            # Load the model
+            print("Loading sentence transformer model...")
+            self.model = SentenceTransformer('all-MiniLM-L6-v2')
+            print("Model loaded successfully!")
+            
+            print(f"Loaded {len(self.embeddings)} products")
+            
+        except Exception as e:
+            print(f"Error in initialization: {e}")
+            raise
+
+    def get_product_name(self, idx):
+        return self.product_names[idx]
+
+    def get_embedding_string(self, idx):
+        return self.embedding_strings[idx]
+    
+    def search(self, query: str, top_k: int = 4) -> List[Tuple[int, float]]:
+        """Search for products using a text query."""
+        query_embedding = self.model.encode([query])[0]
+        
+        similarities = np.dot(self.embeddings, query_embedding) / (
+            np.linalg.norm(self.embeddings, axis=1) * np.linalg.norm(query_embedding)
+        )
+        
+        top_idx = np.argsort(similarities)[::-1][:top_k]
+        return [(idx, similarities[idx]) for idx in top_idx]
+    
+searcher = ProductSearcher()
+```
+
+```{python}
+hits=searcher.search("Socks for holiday", 3)
+
+idx_first = hits[0][0]
+idx_second = hits[1][0]
+idx_third = hits[2][0]
+
+similarity_first = hits[0][1]
+similarity_second = hits[1][1]
+similarity_third = hits[2][1]
+
+print(similarity_first)
+print(searcher.get_embedding_string(idx_first))
+print(similarity_second)
+print(searcher.get_embedding_string(idx_second))
+print(similarity_third)
+print(searcher.get_embedding_string(idx_third))
+```
+

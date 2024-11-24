@@ -2,6 +2,7 @@ SHELL:=/bin/bash
 
 SOURCES:= \
 HandMSemanticSearch.qmd \
+HandMRag.qmd \
 HandMCreateEmbeddings.qmd \
 Small-Similarity-Example.qmd \
 OppositesEmbeddings.qmd \

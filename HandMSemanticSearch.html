@@ -202,85 +202,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_product_name(<span class="va">self</span>, idx):</span>
 <span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.product_names[idx]</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_article_image(<span class="va">self</span>, article_id: <span class="bu">str</span>) <span class="op">-&gt;</span> Image.Image:</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Load image for a given article ID."""</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> suppress_all_output(): </span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>            download_specific_image(article_id)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_embedding_string(<span class="va">self</span>, idx):</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.embedding_strings[idx]</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_article_image(<span class="va">self</span>, article_id: <span class="bu">str</span>) <span class="op">-&gt;</span> Image.Image:</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Load image for a given article ID."""</span></span>
 <span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        padded_id <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span><span class="bu">int</span>(article_id)<span class="sc">:010d}</span><span class="ss">"</span></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>        image_path <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>padded_id<span class="sc">}</span><span class="ss">.jpg"</span> </span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> Image.<span class="bu">open</span>(image_path)</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Could not load image for article ID </span><span class="sc">{</span>article_id<span class="sc">}</span><span class="ss"> (padded: </span><span class="sc">{</span>padded_id<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> search(<span class="va">self</span>, query: <span class="bu">str</span>, top_k: <span class="bu">int</span> <span class="op">=</span> <span class="dv">4</span>) <span class="op">-&gt;</span> List[Tuple[<span class="bu">int</span>, <span class="bu">float</span>]]:</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Search for products using a text query."""</span></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>        query_embedding <span class="op">=</span> <span class="va">self</span>.model.encode([query])[<span class="dv">0</span>]</span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>        similarities <span class="op">=</span> np.dot(<span class="va">self</span>.embeddings, query_embedding) <span class="op">/</span> (</span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>            np.linalg.norm(<span class="va">self</span>.embeddings, axis<span class="op">=</span><span class="dv">1</span>) <span class="op">*</span> np.linalg.norm(query_embedding)</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>        top_idx <span class="op">=</span> np.argsort(similarities)[::<span class="op">-</span><span class="dv">1</span>][:top_k]</span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [(idx, similarities[idx]) <span class="cf">for</span> idx <span class="kw">in</span> top_idx]</span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> print_search_results(<span class="va">self</span>, query: <span class="bu">str</span>, top_k: <span class="bu">int</span> <span class="op">=</span> <span class="dv">3</span>):</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Perform search and print results with images in a readable format using Markdown."""</span></span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Display header</span></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>        display(Markdown(<span class="ss">f"""</span></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="ss"># Search Results</span></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="ss">## Query: "</span><span class="sc">{</span>query<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>))</span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>        results <span class="op">=</span> <span class="va">self</span>.search(query, top_k)</span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>        images_to_display <span class="op">=</span> []</span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>        titles <span class="op">=</span> []</span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Display results in Markdown format</span></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> idx, score <span class="kw">in</span> results:</span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>            markdown_result <span class="op">=</span> <span class="ss">f"""</span></span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="ss">### Match Score: </span><span class="sc">{</span>score<span class="sc">:.3f}</span></span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="ss">**Product Name:** </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>product_names[idx]<span class="sc">}</span><span class="ss">  </span></span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="ss">**Product Code:** `</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>product_codes[idx]<span class="sc">}</span><span class="ss">`  </span></span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="ss">**Article IDs:** `</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>article_ids_str[idx]<span class="sc">}</span><span class="ss">`</span></span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="ss">**Embedded String:**  </span></span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>embedding_strings[idx]<span class="sc">}</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> suppress_all_output(): </span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>            download_specific_image(article_id)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        padded_id <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span><span class="bu">int</span>(article_id)<span class="sc">:010d}</span><span class="ss">"</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>        image_path <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>padded_id<span class="sc">}</span><span class="ss">.jpg"</span> </span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> Image.<span class="bu">open</span>(image_path)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Could not load image for article ID </span><span class="sc">{</span>article_id<span class="sc">}</span><span class="ss"> (padded: </span><span class="sc">{</span>padded_id<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> search(<span class="va">self</span>, query: <span class="bu">str</span>, top_k: <span class="bu">int</span> <span class="op">=</span> <span class="dv">4</span>) <span class="op">-&gt;</span> List[Tuple[<span class="bu">int</span>, <span class="bu">float</span>]]:</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Search for products using a text query."""</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>        query_embedding <span class="op">=</span> <span class="va">self</span>.model.encode([query])[<span class="dv">0</span>]</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>        similarities <span class="op">=</span> np.dot(<span class="va">self</span>.embeddings, query_embedding) <span class="op">/</span> (</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>            np.linalg.norm(<span class="va">self</span>.embeddings, axis<span class="op">=</span><span class="dv">1</span>) <span class="op">*</span> np.linalg.norm(query_embedding)</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>        top_idx <span class="op">=</span> np.argsort(similarities)[::<span class="op">-</span><span class="dv">1</span>][:top_k]</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> [(idx, similarities[idx]) <span class="cf">for</span> idx <span class="kw">in</span> top_idx]</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> print_search_results(<span class="va">self</span>, query: <span class="bu">str</span>, top_k: <span class="bu">int</span> <span class="op">=</span> <span class="dv">3</span>):</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Perform search and print results with images in a readable format using Markdown."""</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Display header</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>        display(Markdown(<span class="ss">f"""</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="ss"># Search Results</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="ss">## Query: "</span><span class="sc">{</span>query<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>))</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>        results <span class="op">=</span> <span class="va">self</span>.search(query, top_k)</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>        images_to_display <span class="op">=</span> []</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>        titles <span class="op">=</span> []</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Display results in Markdown format</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> idx, score <span class="kw">in</span> results:</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>            markdown_result <span class="op">=</span> <span class="ss">f"""</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="ss">### Match Score: </span><span class="sc">{</span>score<span class="sc">:.3f}</span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="ss">**Product Name:** </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>product_names[idx]<span class="sc">}</span><span class="ss">  </span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="ss">**Product Code:** `</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>product_codes[idx]<span class="sc">}</span><span class="ss">`  </span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="ss">**Article IDs:** `</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>article_ids_str[idx]<span class="sc">}</span><span class="ss">`</span></span>
 <span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="ss">---</span></span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>            display(Markdown(markdown_result))</span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Collect image and title information</span></span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>            first_article_id <span class="op">=</span> <span class="va">self</span>.article_ids_str[idx].split(<span class="st">','</span>)[<span class="dv">0</span>]</span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> suppress_all_output(): </span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>                img <span class="op">=</span> <span class="va">self</span>.get_article_image(first_article_id)</span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> img <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>                images_to_display.append(img)</span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>                titles.append(<span class="ss">f"</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>product_names[idx]<span class="sc">}</span><span class="ch">\n</span><span class="ss">Article ID: </span><span class="sc">{</span>first_article_id<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Display images</span></span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> images_to_display:</span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>            fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, (img, title) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(images_to_display, titles), <span class="dv">1</span>):</span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>                plt.subplot(<span class="dv">1</span>, <span class="bu">len</span>(images_to_display), i)</span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>                plt.imshow(img)</span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>                plt.title(title, wrap<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>                plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>            plt.tight_layout()</span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>            display(plt.gcf())</span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>            plt.close()</span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>searcher <span class="op">=</span> ProductSearcher()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="ss">**Embedded String:**  </span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>embedding_strings[idx]<span class="sc">}</span></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a><span class="ss">---</span></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>            display(Markdown(markdown_result))</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Collect image and title information</span></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>            first_article_id <span class="op">=</span> <span class="va">self</span>.article_ids_str[idx].split(<span class="st">','</span>)[<span class="dv">0</span>]</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> suppress_all_output(): </span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>                img <span class="op">=</span> <span class="va">self</span>.get_article_image(first_article_id)</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> img <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>                images_to_display.append(img)</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>                titles.append(<span class="ss">f"</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>product_names[idx]<span class="sc">}</span><span class="ch">\n</span><span class="ss">Article ID: </span><span class="sc">{</span>first_article_id<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Display images</span></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> images_to_display:</span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>            fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, (img, title) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(images_to_display, titles), <span class="dv">1</span>):</span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>                plt.subplot(<span class="dv">1</span>, <span class="bu">len</span>(images_to_display), i)</span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>                plt.imshow(img)</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>                plt.title(title, wrap<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>                plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>            plt.tight_layout()</span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>            display(plt.gcf())</span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>            plt.close()</span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>searcher <span class="op">=</span> ProductSearcher()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Downloading embeddings file from GitHub...
 Loading embeddings and model...
@@ -290,92 +293,69 @@ Loaded 47224 products</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>searcher.print_search_results(<span class="st">"Socks for holiday"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#hits=searcher.search("Socks for holiday", 3)</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#idx_first = hits[0][0]</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#idx_second = hits[1][0]</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#idx_third = hits[2][0]</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#similarity_first = hits[0][1]</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#similarity_second = hits[1][1]</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#similarity_third = hits[2][1]</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#print(searcher.get_product_name(idx_first))</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#print(searcher.get_product_name(idx_second))</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#print(searcher.get_product_name(idx_third))</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#searcher.print_search_results("Socks for holiday")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="search-results" class="level1 cell-output cell-output-display">
-<h1>Search Results</h1>
-<section id="query-socks-for-holiday" class="level2">
-<h2 class="anchored" data-anchor-id="query-socks-for-holiday">Query: “Socks for holiday”</h2>
-</section>
-</section>
-<section id="match-score-0.635" class="level3 cell-output cell-output-display">
-<h3 class="anchored" data-anchor-id="match-score-0.635">Match Score: 0.635</h3>
-<p><strong>Product Name:</strong> Xmas Bauble 1p Socks<br>
-<strong>Product Code:</strong> <code>321249</code><br>
-<strong>Article IDs:</strong> <code>321249006,321249007,321249009,321249010</code></p>
-<p><strong>Embedded String:</strong><br>
-Socks | [Colors: Dark Red, Grey, Red, White] [Patterns: All over pattern] | Socks in a jacquard-knit cotton blend supplied in a transparent plastic Christmas tree bauble.</p>
-<hr>
-</section>
-<section id="match-score-0.615" class="level3 cell-output cell-output-display">
-<h3 class="anchored" data-anchor-id="match-score-0.615">Match Score: 0.615</h3>
-<p><strong>Product Name:</strong> Roy socks 5-pack<br>
-<strong>Product Code:</strong> <code>890347</code><br>
-<strong>Article IDs:</strong> <code>890347001,890347002</code></p>
-<p><strong>Embedded String:</strong><br>
-Socks | [Colors: Black, White] [Patterns: Solid] | Sports socks in fast-drying functional yarn with reinforced heels and toes for optimum fit and comfort. Ventilating hole-knit sections over the feet.</p>
-<hr>
-</section>
-<section id="match-score-0.610" class="level3 cell-output cell-output-display">
-<h3 class="anchored" data-anchor-id="match-score-0.610">Match Score: 0.610</h3>
-<p><strong>Product Name:</strong> Gift 1p Sock<br>
-<strong>Product Code:</strong> <code>761285</code><br>
-<strong>Article IDs:</strong> <code>761285001,761285002</code></p>
-<p><strong>Embedded String:</strong><br>
-Socks | [Colors: Beige, Dark Red] [Patterns: All over pattern] | Cardboard gift pack with a silk ribbon hanger at the top containing a pair of socks in a soft, jacquard-knit cotton blend with glittery threads and elasticated tops.</p>
-<hr>
-</section>
-<div class="cell-output cell-output-display">
-<p><img src="HandMSemanticSearch_files/figure-html/cell-9-output-5.png" width="1142" height="602"></p>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#searcher.print_search_results("Socks for holiday")</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>hits<span class="op">=</span>searcher.search(<span class="st">"Socks for holiday"</span>, <span class="dv">3</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>idx_first <span class="op">=</span> hits[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>idx_second <span class="op">=</span> hits[<span class="dv">1</span>][<span class="dv">0</span>]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>idx_third <span class="op">=</span> hits[<span class="dv">2</span>][<span class="dv">0</span>]</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#similarity_first = hits[0][1]</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#similarity_second = hits[1][1]</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#similarity_third = hits[2][1]</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(searcher.get_product_name(idx_first))</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(searcher.get_product_name(idx_second))</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(searcher.get_product_name(idx_third))</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(searcher.get_embedding_string(idx_first))</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(searcher.get_embedding_string(idx_second))</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(searcher.get_embedding_string(idx_third))</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">#searcher.print_search_results("Socks for holiday")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1pk Halloween
+Gift of the week
+Xmas Bauble 1p Socks
+1pk Halloween | Socks | [Colors: Black, Orange] [Patterns: All over pattern] | Socks in a soft, jacquard-knit cotton blend with elasticated tops.
+Gift of the week | Socks | [Colors: Dark Blue, Red] [Patterns: All over pattern] | Jacquard-knit socks in a soft cotton blend.
+Xmas Bauble 1p Socks | Socks | [Colors: Dark Red, Grey, Red, White] [Patterns: All over pattern] | Socks in a jacquard-knit cotton blend supplied in a transparent plastic Christmas tree bauble.</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>searcher.print_search_results(<span class="st">"A party dress for a dance for woman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="search-results-1" class="level1 cell-output cell-output-display">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>searcher.print_search_results(<span class="st">"A party dress for a dance for woman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="search-results" class="level1 cell-output cell-output-display">
 <h1>Search Results</h1>
 <section id="query-a-party-dress-for-a-dance-for-woman" class="level2">
 <h2 class="anchored" data-anchor-id="query-a-party-dress-for-a-dance-for-woman">Query: “A party dress for a dance for woman”</h2>
 </section>
 </section>
-<section id="match-score-0.575" class="level3 cell-output cell-output-display">
-<h3 class="anchored" data-anchor-id="match-score-0.575">Match Score: 0.575</h3>
-<p><strong>Product Name:</strong> UNICORN dancedress<br>
-<strong>Product Code:</strong> <code>828299</code><br>
-<strong>Article IDs:</strong> <code>828299001</code></p>
+<section id="match-score-0.623" class="level3 cell-output cell-output-display">
+<h3 class="anchored" data-anchor-id="match-score-0.623">Match Score: 0.623</h3>
+<p><strong>Product Name:</strong> Alice party dress<br>
+<strong>Product Code:</strong> <code>560609</code><br>
+<strong>Article IDs:</strong> <code>560609001</code></p>
 <p><strong>Embedded String:</strong><br>
-Dress | [Colors: Light Pink] [Patterns: Placement print] | Dance dress in glossy jersey with a glittery print, a seam at the waist and a layered tulle skirt. Lined skirt.</p>
+Alice party dress | Dress | [Colors: Light Pink] [Patterns: Lace] | Sleeveless dress with a sequined lace bodice, a visible zip at the back and flared skirt in several layers of tulle. Lined.</p>
 <hr>
 </section>
-<section id="match-score-0.570" class="level3 cell-output cell-output-display">
-<h3 class="anchored" data-anchor-id="match-score-0.570">Match Score: 0.570</h3>
-<p><strong>Product Name:</strong> ESTELLE dancedress<br>
-<strong>Product Code:</strong> <code>830725</code><br>
-<strong>Article IDs:</strong> <code>830725001,830725002,830725004</code></p>
+<section id="match-score-0.612" class="level3 cell-output cell-output-display">
+<h3 class="anchored" data-anchor-id="match-score-0.612">Match Score: 0.612</h3>
+<p><strong>Product Name:</strong> One dance<br>
+<strong>Product Code:</strong> <code>619198</code><br>
+<strong>Article IDs:</strong> <code>619198001,619198003</code></p>
 <p><strong>Embedded String:</strong><br>
-Dress | [Colors: Black, Light Pink, Other Pink] [Patterns: Solid] | Dance dress in glossy jersey with decorative gathers at the top and narrow shoulder straps that cross at the back. Seam at the waist with a glittery elastic waistband and a skirt in layers of glittery tulle. Lined gusset.</p>
+One dance | Dress | [Colors: Light Green, Pink] [Patterns: All over pattern, Solid] | Long wrap dress in an airy weave with a V-neck, double-layered top and narrow shoulder straps that are twisted at the back. Seam and a tie at the waist and a skirt with slits. Partly lined.</p>
 <hr>
 </section>
-<section id="match-score-0.570-1" class="level3 cell-output cell-output-display">
-<h3 class="anchored" data-anchor-id="match-score-0.570-1">Match Score: 0.570</h3>
-<p><strong>Product Name:</strong> Sara Dance dress SG<br>
-<strong>Product Code:</strong> <code>500371</code><br>
-<strong>Article IDs:</strong> <code>500371003,500371004</code></p>
+<section id="match-score-0.611" class="level3 cell-output cell-output-display">
+<h3 class="anchored" data-anchor-id="match-score-0.611">Match Score: 0.611</h3>
+<p><strong>Product Name:</strong> Dance with Me Dress<br>
+<strong>Product Code:</strong> <code>682758</code><br>
+<strong>Article IDs:</strong> <code>682758001,682758002</code></p>
 <p><strong>Embedded String:</strong><br>
-Dress | [Colors: Black, Other Pink] [Patterns: Solid] | Dance dress in glossy jersey with crossover straps at the back and 3/4-length sleeves. Glittery elasticated seam at the waist and a layered tulle skirt. Lined gusset.</p>
+Dance with Me Dress | Dress | [Colors: Dark Blue, Light Grey] [Patterns: Sequin] | Short, fitted dress in sequined mesh with a concealed zip at the back and long sleeves with a concealed zip at the cuffs. Jersey lining.</p>
 <hr>
 </section>
 <div class="cell-output cell-output-display">
