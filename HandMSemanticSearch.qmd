@@ -212,30 +212,6 @@ searcher = ProductSearcher()
 ```
 
 ```{python}
-#searcher.print_search_results("Socks for holiday")
-
-hits=searcher.search("Socks for holiday", 3)
-
-idx_first = hits[0][0]
-idx_second = hits[1][0]
-idx_third = hits[2][0]
-
-#similarity_first = hits[0][1]
-#similarity_second = hits[1][1]
-#similarity_third = hits[2][1]
-
-print(searcher.get_product_name(idx_first))
-print(searcher.get_product_name(idx_second))
-print(searcher.get_product_name(idx_third))
-
-print(searcher.get_embedding_string(idx_first))
-print(searcher.get_embedding_string(idx_second))
-print(searcher.get_embedding_string(idx_third))
-
-#searcher.print_search_results("Socks for holiday")
-```
-
-```{python}
 searcher.print_search_results("A party dress for a dance for woman")
 ```
 

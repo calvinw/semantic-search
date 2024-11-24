@@ -51,10 +51,8 @@ def create_enhanced_descriptions(df):
         colors = f"[Colors: {', '.join(row['colour_group_name'])}]"
         patterns = f"[Patterns: {', '.join(row['graphical_appearance_name'])}]"
         
-        #enhanced_desc = (f"{row['prod_name']} | {row['product_type_name']} | "
-        #                f"{colors} {patterns} | {row['detail_desc']}")
-        enhanced_desc = (f"{row['product_type_name']} | "
-                         f"{colors} {patterns} | {row['detail_desc']}")
+        enhanced_desc = (f"{row['prod_name']} | {row['product_type_name']} | "
+                        f"{colors} {patterns} | {row['detail_desc']}")
         
         results.append({
             'product_code': row['product_code'],
@@ -223,4 +221,147 @@ def create_embeddings():
 #| eval: false
 create_embeddings()
 ```
+
+## Creating the Embedding Strings
+
+### Group the Articles with Same Product Code
+
+First, group the data by `product_code` using `groupby()`. This is because a single product (like a t-shirt) might have multiple variants (different colors/patterns) in the dataset. During this grouping, it:
+
+- Takes the first occurrence of `prod_name`, `product_type_name`, and `detail_desc` for each product
+- Creates sorted lists of unique colors (`colour_group_name`) and patterns (`graphical_appearance_name`)
+- Keeps a list of all `article_id`s associated with each product
+
+### Create Enhanced Description Containing Variants (Color, Pattern)
+
+Then, for each product group, create an enhanced description by combining:
+
+- Product name
+- Product type
+- A list of all available colors
+- A list of all available patterns
+- The detailed description
+
+### Strap Top Example  
+
+For example "Strap top" (product code "0108775") is combined like this: 
+
+- Combine all colors: ["Black", "White", "Off White"]
+- Combine all patterns: ["Solid", "Stripe"]
+- Create an enhanced description like:
+  "Strap top | Vest top | [Colors: Black, Off White, White] [Patterns: Solid, Stripe] | Jersey top with narrow shoulder straps."
+
+### The Enhanced Data Frame
+
+The final enhanced DataFrame contains:
+
+- product_code: Unique identifier for each product
+- product_name: Name of the product
+- article_ids: List of all variant IDs for this product
+- num_variants: Number of color variants available
+- colors: List of available colors
+- patterns: List of available patterns
+- embedding_string: The enhanced description combining all attributes
+
+This enhanced description could be useful for:
+
+- Search functionality that considers all variants
+- Product recommendations based on similar attributes
+- Better product discovery by including all available options in the description
+
+### Strap Top Example Details 
+
+Here is a complete example using the "Strap top" (product code 0108775) from the data, showing both the data before and after 
+
+#### BEFORE (Separate Article Rows in Original Dataframe df)
+
+
+| article_id | product_code | prod_name | product_type_name | detail_desc | colour_group_name | graphical_appearance_name |
+|------------|--------------|-----------|------------------|-------------|-------------------|--------------------------|
+| 0108775015 | 0108775 | Strap top | Vest top | Jersey top with narrow shoulder straps. | Black | Solid |
+| 0108775044 | 0108775 | Strap top | Vest top | Jersey top with narrow shoulder straps. | White | Solid |
+| 0108775051 | 0108775 | Strap top (1) | Vest top | Jersey top with narrow shoulder straps. | Off White | Stripe |
+
+#### AFTER (Single Product Row in the Enhanced DataFrame)
+
+
+| Field | Value |
+|-------|--------|
+| product_code | 0108775 |
+| product_name | Strap top |
+| article_ids | ['0108775015', '0108775044', '0108775051'] |
+| num_variants | 3 |
+| colors | ['Black', 'Off White', 'White'] |
+| patterns | ['Solid', 'Stripe'] |
+| embedding_string | Strap top \| Vest top \| [Colors: Black, Off White, White] [Patterns: Solid, Stripe] \| Jersey top with narrow shoulder straps. |
+
+The transformation:
+
+1. Takes 3 separate variant-level rows
+2. Combines them into 1 product-level row
+3. Preserves all variant information in organized lists
+4. Creates a comprehensive description string that includes all color and pattern options
+
+
+### More Examples:
+
+#### Example 1 - FLEECE PYJAMA:
+
+**BEFORE**
+
+| article_id | product_code | prod_name | product_type_name | detail_desc | colour_group_name | graphical_appearance_name |
+|------------|--------------|-----------|------------------|-------------|-------------------|--------------------------|
+| 0174057022 | 0174057 | FLEECE PYJAMA | Pyjama jumpsuit/playsuit | All-in-one pyjamas in soft... | Light Pink | All over pattern |
+| 0174057026 | 0174057 | FLEECE PYJAMA | Pyjama jumpsuit/playsuit | All-in-one pyjamas in soft... | Light Grey | All over pattern |
+| 0174057029 | 0174057 | FLEECE PYJAMA | Pyjama jumpsuit/playsuit | All-in-one pyjamas in soft...  | White | Dot |
+| 0174057030 | 0174057 | FLEECE PYJAMA | Pyjama jumpsuit/playsuit | All-in-one pyjamas in soft...  | Light Turquoise | Stripe |
+
+**AFTER**
+
+| Field | Value |
+|-------|--------|
+| product_code | 0174057 |
+| product_name | FLEECE PYJAMA |
+| article_ids | ['0174057022', '0174057026', '0174057029', '0174057030'] |
+| num_variants | 4 |
+| colors | ['Light Grey', 'Light Pink', 'Light Turquoise', 'White'] |
+| patterns | ['All over pattern', 'Dot', 'Stripe'] |
+| embedding_string | FLEECE PYJAMA \| Pyjama jumpsuit/playsuit \| [Colors: Light Grey, Light Pink, Light Turquoise, White] [Patterns: All over pattern, Dot, Stripe] \| All-in-one pyjamas in soft, patterned fleece that fasten down the front and along one leg. Ribbing at the cuffs and hems. |
+
+#### Example 2 - Jerry jogger bottoms:
+
+**BEFORE**
+
+| article_id | product_code | prod_name | product_type_name | detail_desc | colour_group_name | graphical_appearance_name |
+|------------|--------------|-----------|------------------|-------------|-------------------|--------------------------|
+| 0118458003 | 0118458 | Jerry jogger bottoms | Trousers | Trousers in sweatshirt ... | Dark Grey | Melange |
+| 0118458028 | 0118458 | Jerry jogger bottoms | Trousers | Trousers in sweatshirt ... | Black | Solid |
+| 0118458034 | 0118458 | Jerry jogger bottoms | Trousers | Trousers in sweatshirt ... | Pink | Solid |
+| 0118458039 | 0118458 | Jerry jogger bottoms | Trousers | Trousers in sweatshirt ... | Dark Blue | Melange |
+
+**AFTER**
+
+| Field | Value |
+|-------|--------|
+| product_code | 0118458 |
+| product_name | Jerry jogger bottoms |
+| article_ids | ['0118458003', '0118458028', '0118458034', '0118458039'] |
+| num_variants | 4 |
+| colors | ['Black', 'Dark Blue', 'Dark Grey', 'Pink'] |
+| patterns | ['Melange', 'Solid'] |
+| embedding_string | Jerry jogger bottoms \| Trousers \| [Colors: Black, Dark Blue, Dark Grey, Pink] [Patterns: Melange, Solid] \| Trousers in sweatshirt fabric with an elasticated drawstring waist, side pockets, a back pocket and ribbed hems. Soft brushed inside. |
+
+In both examples, you can see how the transformation:
+
+1. Combines multiple variants of the same product into a single row
+2. Aggregates all colors and patterns into sorted, unique lists
+3. Preserves all article IDs for reference
+4. Creates a comprehensive description that includes all available options
+5. Maintains the core product information while consolidating the variant-specific details
+
+### Why We Are Doing This 
+
+This makes it much easier to see how multiple product variants are consolidated into a single, information-rich record while maintaining all the important details from the original data.
+
+The grouping reduces multiple rows of variant-level information into a single row of product-level information while preserving all the important variant details in organized lists.
 
