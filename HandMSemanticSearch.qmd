@@ -124,6 +124,9 @@ class ProductSearcher:
         except Exception as e:
             print(f"Error in initialization: {e}")
             raise
+
+    def get_product_name(self, idx):
+        return self.product_names[idx]
     
     def get_article_image(self, article_id: str) -> Image.Image:
         """Load image for a given article ID."""
@@ -173,7 +176,7 @@ class ProductSearcher:
 **Product Code:** `{self.product_codes[idx]}`  
 **Article IDs:** `{self.article_ids_str[idx]}`
 
-**Description:**  
+**Embedded String:**  
 {self.embedding_strings[idx]}
 
 ---
@@ -207,8 +210,23 @@ searcher = ProductSearcher()
 
 ```{python}
 searcher.print_search_results("Socks for holiday")
+#hits=searcher.search("Socks for holiday", 3)
+
+#idx_first = hits[0][0]
+#idx_second = hits[1][0]
+#idx_third = hits[2][0]
+
+#similarity_first = hits[0][1]
+#similarity_second = hits[1][1]
+#similarity_third = hits[2][1]
+
+#print(searcher.get_product_name(idx_first))
+#print(searcher.get_product_name(idx_second))
+#print(searcher.get_product_name(idx_third))
+
+#searcher.print_search_results("Socks for holiday")
 ```
 
 ```{python}
-searcher.print_search_results("A party dress for a dance")
+searcher.print_search_results("A party dress for a dance for woman")
 ```
