@@ -1,7 +1,8 @@
 SHELL:=/bin/bash
 
 SOURCES:= \
-SemanticSearch.qmd \
+HandMSemanticSearch.qmd \
+HandMCreateEmbeddings.qmd \
 Small-Similarity-Example.qmd \
 OppositesEmbeddings.qmd \
 PlotEmbeddings.qmd \
