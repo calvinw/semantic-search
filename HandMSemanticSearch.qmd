@@ -6,19 +6,32 @@ format:
 ---
 
 ```{python}
+#| eval: true
+#| echo: false 
+#| output: false
+from dotenv import load_dotenv
+load_dotenv()
+```
+
+```{python}
+#| eval: false
 import os
-import io 
-import sys
-from contextlib import contextmanager
-import warnings
+os.environ['KAGGLE_USERNAME'] = ''
+os.environ['KAGGLE_KEY'] = ''
+```
 
-os.environ['KAGGLE_USERNAME'] = 'calvinw'
-os.environ['KAGGLE_KEY'] = 'b9096f0f988cca2a5d0402a878e8607a'
-
+```{python}
 from kaggle.api.kaggle_api_extended import KaggleApi
 api = KaggleApi()
 api.authenticate()
+```
 
+```{python}
+import os
+import io 
+import sys
+import warnings
+from contextlib import contextmanager
 @contextmanager
 def suppress_all_output():
     """
@@ -48,9 +61,7 @@ def suppress_all_output():
 import numpy as np
 import pandas as pd 
 from sentence_transformers import SentenceTransformer
-from pathlib import Path
 import time
-from collections import Counter
 from io import StringIO
 from io import BytesIO
 from typing import List, Tuple
@@ -196,5 +207,8 @@ searcher = ProductSearcher()
 
 ```{python}
 searcher.print_search_results("Socks for holiday")
-searcher.print_search_results("A party dress for office party")
+```
+
+```{python}
+searcher.print_search_results("A party dress for a dance")
 ```
