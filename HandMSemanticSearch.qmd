@@ -238,3 +238,58 @@ print(searcher.get_embedding_string(idx_third))
 ```{python}
 searcher.print_search_results("A party dress for a dance for woman")
 ```
+
+```{python}
+searcher.print_search_results("Socks for a holiday")
+```
+
+```{python}
+searcher.print_search_results("Motorcycle clothes")
+```
+
+```{python}
+#| eval: false
+from ipywidgets import widgets
+from IPython.display import display, clear_output
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+
+def create_interactive_search():
+    # Create the search box, submit button, and output area
+    search_box = widgets.Text(
+        value='',
+        placeholder='Enter your search query (type "quit" to exit)',
+        description='Search:',
+        layout=widgets.Layout(width='600px')
+    )
+    submit_button = widgets.Button(
+        description='Submit',
+        button_style='primary',  # 'success', 'info', 'warning', 'danger' or ''
+        tooltip='Click to search or press Enter',
+        icon='search'  # Optional icon
+    )
+    output_area = widgets.Output()
+    
+    # Function to handle search logic
+    def handle_search(_):
+        query = search_box.value
+        with output_area:
+            clear_output()
+            if query.lower().strip() == 'quit':
+                print("Search terminated.")
+            elif query.strip():  # Only search if there's actually a query
+                # Replace this with your actual search logic
+                searcher.print_search_results(query)
+            else:
+                print("Please enter a search query.")
+    
+    # Bind the button click event
+    submit_button.on_click(handle_search)
+    
+    # Display the interface
+    display(widgets.HBox([search_box, submit_button]))
+    display(output_area)
+
+# Create and display the interactive search interface
+create_interactive_search()
+```
