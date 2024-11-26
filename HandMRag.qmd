@@ -5,8 +5,10 @@ format:
     page-layout: full
 ---
 
+{{< include _llm_openrouter.qmd >}}
+
 ```{python}
-#| eval: true
+#| eval: false 
 #| echo: false 
 #| output: false
 from dotenv import load_dotenv
@@ -73,22 +75,68 @@ class ProductSearcher:
 searcher = ProductSearcher()
 ```
 
+## A Search and Results
+
 ```{python}
-hits=searcher.search("Socks for holiday", 3)
+query="Socks for holiday"
+hits=searcher.search(query, 3)
 
 idx_first = hits[0][0]
 idx_second = hits[1][0]
 idx_third = hits[2][0]
 
-similarity_first = hits[0][1]
-similarity_second = hits[1][1]
-similarity_third = hits[2][1]
+score1 = hits[0][1]
+score2 = hits[1][1]
+score3 = hits[2][1]
 
-print(similarity_first)
-print(searcher.get_embedding_string(idx_first))
-print(similarity_second)
-print(searcher.get_embedding_string(idx_second))
-print(similarity_third)
-print(searcher.get_embedding_string(idx_third))
+match1 = searcher.get_embedding_string(idx_first)
+match2 = searcher.get_embedding_string(idx_second)
+match3 = searcher.get_embedding_string(idx_third)
+
+match1 = str(score1) + "|" + match1
+match2 = str(score2) + "|" + match2
+match3 = str(score3) + "|" + match3
+
+print(match1)
 ```
 
+## Bundle the Matches and Send to LLM 
+
+Let's set up a prompt to ask the LLM to discuss the hits and ask them if they
+want more information about the items.   
+
+```{python}
+
+template="""
+Below are three matched items that were returned by vector search of a user
+query, which is in the <query> </query> tags. The first number is the
+similarity score of the match. 
+
+Please formulate a response to the user's query that describes the 3 items and
+asks the user if they 
+
+<query>
+{query}
+</query>
+
+<match>
+{match1}
+</match>
+
+<match>
+{match2}
+</match>
+
+<match>
+{match3}
+</match>
+"""
+
+prompt=template.format(match1=match1, match2=match2, match3=match3, query=query)
+response = get_completion(prompt)
+
+print("Prompt:")
+print(prompt)
+print("Response:")
+print(response)
+```
